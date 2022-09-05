@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
         mPopularList.add(new Foods("Vegetable Pizza w/ sinigang burger", "pop_1", "sinigang na burger with ketchup and pizza dahon", 32.99));
 
         setFoodAdapter();
-
         ifEmptyList();
     }
 
@@ -76,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
         mPopularList.add(new Foods("Cheese Burger", "pop_2", "sinigang na burger with soy sauce", 7.99));
 
         setFoodAdapter();
-
         ifEmptyList();
     }
 
@@ -85,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
         mPopularList.add(new Foods("Hotdog with sinigang na pizza", "pop_1", "sinigang na burger with ketchup and pizza dahon", 32.99));
 
         setFoodAdapter();
-
         ifEmptyList();
     }
 
@@ -94,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
         mPopularList.add(new Foods("SUPER DRINKS", "pop_1", "sinigang na burger with ketchup and pizza dahon", 32.99));
 
         setFoodAdapter();
-
         ifEmptyList();
     }
 
@@ -103,15 +99,14 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
         mPopularList.add(new Foods("Donut with sinigang na kape", "pop_1", "sinigang na burger with ketchup and pizza dahon", 32.99));
 
         setFoodAdapter();
-
         ifEmptyList();
     }
 
     private void displayPopularListTest() {
         mPopularList = new ArrayList<>();
         mPopularList.add(new Foods("Pepperoni Pizza", "pizza", "sinigang na pizza with olive oil", 29.99));
-        setFoodAdapter();
 
+        setFoodAdapter();
         ifEmptyList();
     }
 

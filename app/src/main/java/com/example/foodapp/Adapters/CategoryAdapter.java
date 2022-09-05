@@ -1,12 +1,10 @@
 package com.example.foodapp.Adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,12 +19,11 @@ import com.example.foodapp.R;
 import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
-    private ArrayList<Category> mCategoryList;
-    private MainActivity mCallback;
+    private final ArrayList<Category> mCategoryList;
+    private final MainActivity mCallback;
 
     public CategoryAdapter(ArrayList<Category> categoryList, MainActivity callback) {
         this.mCategoryList = categoryList;
-        //this.mContext = context;
         this.mCallback = callback;
     }
 

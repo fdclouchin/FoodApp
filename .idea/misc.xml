@@ -12,7 +12,8 @@
         <entry key="app/src/main/res/drawable/orange_button.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/orange_light_banner.xml" value="0.2815" />
         <entry key="app/src/main/res/drawable/search_background.xml" value="0.2815" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/bottom_nav_layout.xml" value="0.37552083333333336" />
         <entry key="app/src/main/res/layout/category_list_item.xml" value="0.3020833333333333" />
         <entry key="app/src/main/res/layout/foods_list_item.xml" value="0.67" />
         <entry key="app/src/main/res/layout/fragment_food_information.xml" value="0.35260416666666666" />

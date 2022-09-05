@@ -222,7 +222,9 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/category_label"
                     app:layout_constraintStart_toStartOf="@+id/category_label"
-                    app:layout_constraintTop_toBottomOf="@id/category_label" />
+                    app:layout_constraintTop_toBottomOf="@id/category_label"
+                    android:splitMotionEvents="false"
+                    />
 
                 <TextView
                     android:id="@+id/popular_label"
@@ -253,12 +255,23 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/popular_label"
                     app:layout_constraintStart_toStartOf="@+id/popular_label"
-                    app:layout_constraintTop_toBottomOf="@id/popular_label" />
+                    app:layout_constraintTop_toBottomOf="@id/popular_label"
+                    android:splitMotionEvents="false" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-    <!-- TODO make this frame layout and display as fragment -->
+
+    <FrameLayout
+        android:id="@+id/display_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/coordinator_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -407,9 +420,4 @@
             app:layout_anchor="@id/app_bar"
             app:tint="#FFFFFF" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <FrameLayout
-        android:id="@+id/display_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
