@@ -195,6 +195,22 @@
                     app:layout_constraintStart_toStartOf="@+id/constraintLayout"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
+
+                <TextView
+                    android:id="@+id/clear_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="Clear Filter"
+                    android:textColor="#6495ED"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/category_lists"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.964"
+                    app:layout_constraintStart_toEndOf="@+id/category_label"
+                    app:layout_constraintTop_toTopOf="@+id/category_label"
+                    app:layout_constraintVertical_bias="0.0" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/category_lists"
                     android:layout_width="match_parent"
@@ -223,6 +239,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/category_lists" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/popular_lists"
@@ -394,5 +411,5 @@
     <FrameLayout
         android:id="@+id/display_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

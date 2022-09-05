@@ -7,58 +7,61 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FoodInformationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FoodInformationFragment extends Fragment {
+import java.util.Objects;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class FoodInformationFragment extends Fragment implements OnBackPressedFragment{
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String FOOD_TITLE = "FOOD_TITLE";
+    private static final String FOOD_PRICE = "FOOD_PRICE";
+    private static final String FOOD_DESCRIPTION = "FOOD_DESCRIPTION";
+
+    private TextView mFoodTitle;
+    private TextView mFoodPrice;
+    private TextView mFoodDescription;
 
     public FoodInformationFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FoodInformationFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FoodInformationFragment newInstance(String param1, String param2) {
-        FoodInformationFragment fragment = new FoodInformationFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_information, container, false);
+        View view = inflater.inflate(R.layout.fragment_food_information, container, false);
+
+        mFoodTitle = view.findViewById(R.id.food_title_view);
+        mFoodPrice = view.findViewById(R.id.food_price_view);
+        mFoodDescription = view.findViewById(R.id.food_descriptions_view);
+
+        getBundles();
+        return view;
+    }
+
+    private void getBundles() {
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            String foodTitle = bundle.getString(FOOD_TITLE);
+            String foodPrice = bundle.getString(FOOD_PRICE);
+            String foodDescription = bundle.getString(FOOD_DESCRIPTION);
+            mFoodTitle.setText(foodTitle);
+            mFoodPrice.setText(foodPrice);
+            mFoodDescription.setText(foodDescription);
+        }
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        FoodInformationFragment foodInfoFragment = (FoodInformationFragment)
+                requireActivity().getSupportFragmentManager().findFragmentById(R.id.display_fragment);
+
+        if (foodInfoFragment !=null && foodInfoFragment.isVisible()) {
+            getParentFragmentManager().beginTransaction().remove(foodInfoFragment).commit();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.foodapp.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,12 @@ import com.example.foodapp.R;
 import java.util.ArrayList;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHolder> {
-    private ArrayList<Foods> mPopularList;
-    private Context mContext;
+
+    private static final String FOOD_TITLE = "FOOD_TITLE";
+    private static final String FOOD_PRICE = "FOOD_PRICE";
+    private static final String FOOD_DESCRIPTION = "FOOD_DESCRIPTION";
+    private final ArrayList<Foods> mPopularList;
+    private final Context mContext;
 
     public PopularAdapter(ArrayList<Foods> popularList, Context context) {
         this.mPopularList = popularList;
@@ -50,11 +55,21 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         Glide.with(holder.itemView.getContext())
                 .load(drawableResourceID)
                 .into(holder.mFoodImage);
+
+        String foodTitle = mPopularList.get(position).getTitle();
+        String foodPrice = String.valueOf(mPopularList.get(position).getFee());
+        String foodDescription = mPopularList.get(position).getDescription();
         holder.mPopularLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Item " + holder.getAdapterPosition() + " has been selected", Toast.LENGTH_SHORT).show();
-                displayFoodItem(new FoodInformationFragment());
+                Bundle bundle = new Bundle();
+
+                bundle.putString(FOOD_TITLE, foodTitle);
+                bundle.putString(FOOD_PRICE, foodPrice);
+                bundle.putString(FOOD_DESCRIPTION, foodDescription);
+                FoodInformationFragment passBundle = new FoodInformationFragment();
+                passBundle.setArguments(bundle);
+                displayFoodItem(passBundle);
             }
         });
     }
@@ -72,10 +87,10 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView mFoodTitle;
-        private ImageView mFoodImage;
-        private TextView mFoodPrice;
-        private ConstraintLayout mPopularLayout;
+        private final TextView mFoodTitle;
+        private final ImageView mFoodImage;
+        private final TextView mFoodPrice;
+        private final ConstraintLayout mPopularLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

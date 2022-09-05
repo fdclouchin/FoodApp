@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.foodapp.MainActivity;
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.R;
 
@@ -21,17 +22,23 @@ import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private ArrayList<Category> mCategoryList;
-    private Context mContext;
+    private MainActivity mCallback;
 
-    public CategoryAdapter(ArrayList<Category> categoryList, Context context) {
+    public CategoryAdapter(ArrayList<Category> categoryList, MainActivity callback) {
         this.mCategoryList = categoryList;
-        this.mContext = context;
+        //this.mContext = context;
+        this.mCallback = callback;
+    }
+
+    //interfaces
+    public interface onClickCategory {
+        void clickCategory(String catTitle);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list_item , parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -73,11 +80,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 .load(drawableResourceID)
                 .into(holder.categoryPic);
 
+        String categoryTitle = mCategoryList.get(position).getTitle();
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Test " + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-
+                mCallback.clickCategory(categoryTitle);
             }
         });
     }

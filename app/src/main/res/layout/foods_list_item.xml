@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_bold"
             android:text="-"
-            android:textColor="#ff5e00"
+            android:textColor="#000"
             android:textSize="16sp"/>
     </LinearLayout>
 
