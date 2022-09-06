@@ -29,6 +29,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
     private static final String FOOD_TITLE = "FOOD_TITLE";
     private static final String FOOD_PRICE = "FOOD_PRICE";
     private static final String FOOD_DESCRIPTION = "FOOD_DESCRIPTION";
+    private static final String FOOD_IMG = "FOOD_IMAGE";
+
     private ArrayList<Foods> mPopularList;
     private final Context mContext;
 
@@ -41,6 +43,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         this.mPopularList = filteredList;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public PopularAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -63,6 +66,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         String foodTitle = mPopularList.get(position).getTitle();
         String foodPrice = String.valueOf(mPopularList.get(position).getFee());
         String foodDescription = mPopularList.get(position).getDescription();
+        String foodImage = mPopularList.get(position).getPic();
+
         holder.mPopularLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +76,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
                 bundle.putString(FOOD_TITLE, foodTitle);
                 bundle.putString(FOOD_PRICE, foodPrice);
                 bundle.putString(FOOD_DESCRIPTION, foodDescription);
+                bundle.putString(FOOD_IMG, foodImage);
                 FoodInformationFragment passBundle = new FoodInformationFragment();
                 passBundle.setArguments(bundle);
                 displayFoodItem(passBundle);
@@ -90,7 +96,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         return mPopularList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView mFoodTitle;
         private final ImageView mFoodImage;
         private final TextView mFoodPrice;

@@ -3,15 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-ldpi/fragment_background.xml" value="0.1925" />
+        <entry key="app/src/main/res/drawable/bg_white_circle.xml" value="0.2215" />
         <entry key="app/src/main/res/drawable/category_background.xml" value="0.2815" />
         <entry key="app/src/main/res/drawable/category_background2.xml" value="0.2815" />
         <entry key="app/src/main/res/drawable/category_background3.xml" value="0.2815" />
         <entry key="app/src/main/res/drawable/category_background4.xml" value="0.2815" />
         <entry key="app/src/main/res/drawable/category_background5.xml" value="0.2815" />
         <entry key="app/src/main/res/drawable/category_background6.xml" value="0.2815" />
+        <entry key="app/src/main/res/drawable/item_fragment_modal.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/orange_button.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/orange_light_banner.xml" value="0.2815" />
         <entry key="app/src/main/res/drawable/search_background.xml" value="0.2815" />
+        <entry key="app/src/main/res/layout-v21/fragment_food_information.xml" value="0.2962962962962963" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.23703703703703705" />
         <entry key="app/src/main/res/layout/bottom_nav_layout.xml" value="0.37552083333333336" />
