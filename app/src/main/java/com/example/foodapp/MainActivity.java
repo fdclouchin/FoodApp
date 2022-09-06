@@ -1,11 +1,13 @@
 package com.example.foodapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +25,14 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
     private ArrayList<Foods> mPopularList;
     private ArrayList<Category> mCategoryList;
 
+    private PopularAdapter mPopularAdapter;
+    private CategoryAdapter mCategoryAdapter;
+
     private TextView mOrderNow;
     private TextView mClearFilter;
+
+    private SearchView mSearch;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +45,48 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
         mOrderNow = findViewById(R.id.order_now_button);
         mClearFilter = findViewById(R.id.clear_filter);
 
+        mSearch = findViewById(R.id.search_food);
+        mSearch.clearFocus();
         mOrderNow.setOnClickListener(mOnClickListener);
         mClearFilter.setOnClickListener(mOnClickListener);
 
         displayCategoryList();
         displayPopularList();
+
+        //will not push bottom nav bar if soft keyboard is visible
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING); ||  android:windowSoftInputMode="adjustNothing"
+
+        mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                /*filterList(query);
+                return true;*/
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+    }
+
+    private void filterList(String text) {
+        ArrayList<Foods> filteredList = new ArrayList<>();
+        for (Foods foods: mPopularList) {
+            if (foods.getTitle().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(foods); 
+            } else if (foods.getDescription().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(foods);
+            }
+        }
+
+        if (filteredList.isEmpty()){
+            Toast.makeText(this, "No data found!", Toast.LENGTH_SHORT).show();
+        } else {
+            mPopularAdapter.setFilteredList(filteredList);
+        }
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -135,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
     }
 
     private void setFoodAdapter() {
-        PopularAdapter mPopularAdapter = new PopularAdapter(mPopularList, MainActivity.this);
+        mPopularAdapter = new PopularAdapter(mPopularList, MainActivity.this);
         mPopularListRecyclerView.setAdapter(mPopularAdapter);
     }
 
@@ -151,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
     }
 
     private void setCategoryList() {
-        CategoryAdapter mCategoryAdapter = new CategoryAdapter(mCategoryList, MainActivity.this);
+        mCategoryAdapter = new CategoryAdapter(mCategoryList, MainActivity.this);
         mCategoryListRecyclerView.setAdapter(mCategoryAdapter);
     }
 

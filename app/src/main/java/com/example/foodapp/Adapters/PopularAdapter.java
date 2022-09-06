@@ -29,7 +29,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
     private static final String FOOD_TITLE = "FOOD_TITLE";
     private static final String FOOD_PRICE = "FOOD_PRICE";
     private static final String FOOD_DESCRIPTION = "FOOD_DESCRIPTION";
-    private final ArrayList<Foods> mPopularList;
+    private ArrayList<Foods> mPopularList;
     private final Context mContext;
 
     public PopularAdapter(ArrayList<Foods> popularList, Context context) {
@@ -37,6 +37,10 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         this.mContext = context;
     }
 
+    public void setFilteredList(ArrayList<Foods> filteredList) {
+        this.mPopularList = filteredList;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public PopularAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
