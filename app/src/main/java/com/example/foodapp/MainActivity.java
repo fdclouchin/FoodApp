@@ -3,6 +3,8 @@ package com.example.foodapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import com.example.foodapp.Adapters.CategoryAdapter;
 import com.example.foodapp.Adapters.PopularAdapter;
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.Model.Foods;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
     private TextView mClearFilter;
 
     private SearchView mSearch;
-
+    private FloatingActionButton mCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +47,13 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
 
         mOrderNow = findViewById(R.id.order_now_button);
         mClearFilter = findViewById(R.id.clear_filter);
-
+        mCart = findViewById(R.id.cart_floating_button);
         mSearch = findViewById(R.id.search_food);
         mSearch.clearFocus();
+
         mOrderNow.setOnClickListener(mOnClickListener);
         mClearFilter.setOnClickListener(mOnClickListener);
+        mCart.setOnClickListener(mOnClickListener);
 
         displayCategoryList();
         displayPopularList();
@@ -59,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
         mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                /*filterList(query);
-                return true;*/
                 return false;
             }
 
@@ -102,10 +105,21 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
                     displayPopularList();
                     break;
                 }
+                case R.id.cart_floating_button: {
+                    CartInformationFragment cartInformationFragment = new CartInformationFragment();
+                    displayCartFragment(cartInformationFragment);
+                    break;
+                }
             }
         }
     };
+    private void displayCartFragment(Fragment fragment) {
+        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.display_fragment, fragment);
+        fragmentTransaction.commit();
 
+    }
     private void displayPizzaCategory() {
         mPopularList = new ArrayList<>();
         mPopularList.add(new Foods("Pepperoni Pizza", "pizza", "sinigang na pizza with olive oil", 29.99));

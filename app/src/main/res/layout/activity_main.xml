@@ -95,15 +95,15 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:queryHint="Search for food"
-                    android:iconifiedByDefault="false"
-                    android:focusableInTouchMode="true"
                     android:background="@drawable/search_background"
+                    android:focusableInTouchMode="true"
                     android:fontFamily="@font/ubuntu_bold"
+                    android:iconifiedByDefault="false"
+                    android:queryHint="Search for food"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/order_and_eat"/>
+                    app:layout_constraintTop_toBottomOf="@+id/order_and_eat" />
 
                 <!--<EditText
                     android:id="@+id/search_food"
@@ -239,12 +239,11 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:orientation="horizontal"
+                    android:splitMotionEvents="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/category_label"
                     app:layout_constraintStart_toStartOf="@+id/category_label"
-                    app:layout_constraintTop_toBottomOf="@id/category_label"
-                    android:splitMotionEvents="false"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/category_label" />
 
                 <TextView
                     android:id="@+id/popular_label"
@@ -272,11 +271,11 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="110dp"
                     android:orientation="horizontal"
+                    android:splitMotionEvents="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/popular_label"
                     app:layout_constraintStart_toStartOf="@+id/popular_label"
-                    app:layout_constraintTop_toBottomOf="@id/popular_label"
-                    android:splitMotionEvents="false" />
+                    app:layout_constraintTop_toBottomOf="@id/popular_label" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -431,6 +430,7 @@
         </com.google.android.material.bottomappbar.BottomAppBar>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cart_floating_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#ff5e00"

@@ -9,13 +9,14 @@
     <ImageView
         android:id="@+id/main_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@id/get_started"
+        app:layout_constraintBottom_toTopOf="@+id/get_started_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/background_intro" />
 
     <ImageView
@@ -73,9 +74,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guide_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_background"
-        app:layout_constraintVertical_bias="0.97">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/get_started"
@@ -97,12 +96,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.97" />
+        app:layout_constraintGuide_percent="0.9042408" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_percent="0.03009576" />
 </androidx.constraintlayout.widget.ConstraintLayout>
