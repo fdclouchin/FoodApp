@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -27,6 +30,7 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
     private static final String FOOD_PRICE = "FOOD_PRICE";
     private static final String FOOD_DESCRIPTION = "FOOD_DESCRIPTION";
     private static final String FOOD_IMG = "FOOD_IMAGE";
+    private static final String NO_OF_ITEMS = "NO_OF_ITEMS";
 
     private TextView mFoodTitle;
     private TextView mFoodPrice;
@@ -93,14 +97,30 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
                     Toast.makeText(getActivity(), "Close", Toast.LENGTH_SHORT).show();
                     getParentFragmentManager().beginTransaction().remove(foodInfoFragment).commit();
                     //Hide keyboard
-                        /*InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);*/
                     InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mItemCount.getWindowToken(), 0);
                     break;
                 }
                 case R.id.add_to_cart_info_button: {
-                    Toast.makeText(getActivity(), "Add to cart", Toast.LENGTH_SHORT).show();
+                    if (mItemCount != null) {
+                        Toast.makeText(getActivity(), "Add to cart", Toast.LENGTH_SHORT).show();
+
+                        String foodTitle = mFoodTitle.getText().toString();
+                        String foodPrice = mFoodPrice.getText().toString();
+                        String itemCount = mItemCount.getText().toString();
+                        Bundle bundle = FoodInformationFragment.this.getArguments();
+                        String foodImage = bundle.getString(FOOD_IMG);
+
+                        Bundle setArgs = new Bundle();
+                        setArgs.putString(FOOD_TITLE, foodTitle);
+                        setArgs.putString(FOOD_PRICE, foodPrice);
+                        setArgs.putString(FOOD_IMG, foodImage);
+                        setArgs.putString(NO_OF_ITEMS, itemCount);
+
+                        CartInformationFragment passBundle = new CartInformationFragment("Your cart");
+                        passBundle.setArguments(setArgs);
+                        addToCart(passBundle);
+                    }
                     break;
                 }
                 case R.id.subtract_item: {
@@ -122,6 +142,13 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
             }
         }
     };
+
+    private void addToCart(Fragment fragment) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.display_fragment, fragment);
+        fragmentTransaction.commit();
+    }
 
     private void getBundles() {
         Bundle bundle = this.getArguments();

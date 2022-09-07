@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black_translucent">#66000000</color>
     <color name="orange">#ff5e00</color>
+    <color name="darker_white">#DDDDDD</color>
+
 </resources>

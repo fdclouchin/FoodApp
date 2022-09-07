@@ -77,15 +77,15 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
 
     private void filterList(String text) {
         ArrayList<Foods> filteredList = new ArrayList<>();
-        for (Foods foods: mPopularList) {
-            if (foods.getTitle().toLowerCase().contains(text.toLowerCase())){
-                filteredList.add(foods); 
+        for (Foods foods : mPopularList) {
+            if (foods.getTitle().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(foods);
             } else if (foods.getDescription().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(foods);
             }
         }
 
-        if (filteredList.isEmpty()){
+        if (filteredList.isEmpty()) {
             Toast.makeText(this, "No data found!", Toast.LENGTH_SHORT).show();
         } else {
             mPopularAdapter.setFilteredList(filteredList);
@@ -106,13 +106,14 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
                     break;
                 }
                 case R.id.cart_floating_button: {
-                    CartInformationFragment cartInformationFragment = new CartInformationFragment();
+                    CartInformationFragment cartInformationFragment = new CartInformationFragment("Your Cart");
                     displayCartFragment(cartInformationFragment);
                     break;
                 }
             }
         }
     };
+
     private void displayCartFragment(Fragment fragment) {
         FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
         fragmentTransaction.commit();
 
     }
+
     private void displayPizzaCategory() {
         mPopularList = new ArrayList<>();
         mPopularList.add(new Foods("Pepperoni Pizza", "pizza", "sinigang na pizza with olive oil", 29.99));
@@ -170,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
     }
 
     private void ifEmptyList() {
-        if(mPopularList.size()==0) {
+        if (mPopularList.size() == 0) {
             Toast.makeText(this, "NO DATA AVAILABLE", Toast.LENGTH_SHORT).show();
         }
     }
