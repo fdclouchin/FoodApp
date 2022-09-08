@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.foodapp.Model.User;
+import com.example.foodapp.RoomDatabase.AppDatabase;
+
 public class RoomActivity extends AppCompatActivity {
     private EditText mFirstNameInput;
     private EditText mLastNameInput;
@@ -31,7 +34,12 @@ public class RoomActivity extends AppCompatActivity {
 
     private void saveNewUser(String firstName, String lastName) {
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        db.userDao().insertUser();
 
+        User user = new User();
+        user.firstName = firstName;
+        user.lastName = lastName;
+        db.userDao().insertUser(user);
+        setResult(RESULT_OK);
+        finish();
     }
 }

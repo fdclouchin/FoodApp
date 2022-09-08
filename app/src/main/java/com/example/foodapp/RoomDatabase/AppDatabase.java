@@ -1,10 +1,15 @@
-package com.example.foodapp;
+package com.example.foodapp.RoomDatabase;
 
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
+import com.example.foodapp.Interfaces.CartDao;
+import com.example.foodapp.Interfaces.UserDao;
+import com.example.foodapp.Model.Cart;
+import com.example.foodapp.Model.User;
 
 @Database(entities = {User.class}, version = 1)
 

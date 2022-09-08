@@ -1,9 +1,11 @@
-package com.example.foodapp;
+package com.example.foodapp.Interfaces;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+
+import com.example.foodapp.Model.User;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ public interface UserDao {
     List<User> getAllUsers();
 
     @Insert
-    void insertUser(User... users);
+    void insertUser(User... user);
 
     @Delete
     void deleteUser(User user);

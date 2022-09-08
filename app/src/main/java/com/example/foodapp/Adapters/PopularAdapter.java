@@ -77,9 +77,9 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
                 bundle.putString(FOOD_PRICE, foodPrice);
                 bundle.putString(FOOD_DESCRIPTION, foodDescription);
                 bundle.putString(FOOD_IMG, foodImage);
-                FoodInformationFragment passBundle = new FoodInformationFragment();
-                passBundle.setArguments(bundle);
-                displayFoodItem(passBundle);
+                FoodInformationFragment foodInformationFragment = new FoodInformationFragment();
+                foodInformationFragment.setArguments(bundle);
+                displayFoodItem(foodInformationFragment);
             }
         });
     }
@@ -93,7 +93,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return mPopularList.size();
+        return (mPopularList == null)? 0: mPopularList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

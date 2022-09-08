@@ -1,10 +1,8 @@
 package com.example.foodapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,8 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-
-import java.util.Objects;
+import com.example.foodapp.Interfaces.OnBackPressedFragment;
+import com.example.foodapp.Model.Cart;
+import com.example.foodapp.Model.User;
+import com.example.foodapp.RoomDatabase.CartDatabase;
 
 public class FoodInformationFragment extends Fragment implements OnBackPressedFragment {
 
@@ -107,19 +107,12 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
 
                         String foodTitle = mFoodTitle.getText().toString();
                         String foodPrice = mFoodPrice.getText().toString();
-                        String itemCount = mItemCount.getText().toString();
+                        int itemCount = Integer.parseInt(mItemCount.getText().toString());
                         Bundle bundle = FoodInformationFragment.this.getArguments();
+                        assert bundle != null;
                         String foodImage = bundle.getString(FOOD_IMG);
 
-                        Bundle setArgs = new Bundle();
-                        setArgs.putString(FOOD_TITLE, foodTitle);
-                        setArgs.putString(FOOD_PRICE, foodPrice);
-                        setArgs.putString(FOOD_IMG, foodImage);
-                        setArgs.putString(NO_OF_ITEMS, itemCount);
-
-                        CartInformationFragment passBundle = new CartInformationFragment("Your cart");
-                        passBundle.setArguments(setArgs);
-                        addToCart(passBundle);
+                        addToCart(foodTitle, foodPrice, itemCount,foodImage);
                     }
                     break;
                 }
@@ -143,11 +136,15 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
         }
     };
 
-    private void addToCart(Fragment fragment) {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.display_fragment, fragment);
-        fragmentTransaction.commit();
+    private void addToCart(String itemTitle, String itemPrice, int noOfItems, String itemImage) {
+        CartDatabase db = CartDatabase.getDbInstance(requireActivity());
+
+        Cart cart = new Cart();
+        cart.itemTitle = itemTitle;
+        cart.itemPrice = itemPrice;
+        cart.noOfItems = noOfItems;
+        cart.itemImage = itemImage;
+        db.cartDao().addToCart(cart);
     }
 
     private void getBundles() {
