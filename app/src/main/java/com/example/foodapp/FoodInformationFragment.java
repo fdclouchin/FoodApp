@@ -30,7 +30,7 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
     private static final String FOOD_PRICE = "FOOD_PRICE";
     private static final String FOOD_DESCRIPTION = "FOOD_DESCRIPTION";
     private static final String FOOD_IMG = "FOOD_IMAGE";
-    private static final String NO_OF_ITEMS = "NO_OF_ITEMS";
+    //private static final String NO_OF_ITEMS = "NO_OF_ITEMS";
 
     private TextView mFoodTitle;
     private TextView mFoodPrice;

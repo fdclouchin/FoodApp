@@ -10,7 +10,8 @@ import java.util.List;
 
 @Dao
 public interface CartDao {
-    @Query("SELECT * FROM cart ORDER BY cart_id DESC")
+    //sort by total price per item
+    @Query("SELECT * FROM cart ORDER BY item_price * no_of_items DESC")
     List<Cart> getAllCart();
 
     @Insert

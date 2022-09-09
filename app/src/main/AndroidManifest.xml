@@ -35,9 +35,7 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".IntroActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>
