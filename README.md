@@ -1,4 +1,5 @@
 # FoodApp
 food app
-PracticeApp for android development
+<br>
+<b> PRACTICE ONLY </b> App for android development
 -database -> room database
