@@ -1,7 +1,6 @@
 package com.example.foodapp.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +13,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.foodapp.Helper.SwipeHelper;
-import com.example.foodapp.Interfaces.ButtonClickListener;
 import com.example.foodapp.Model.Cart;
-import com.example.foodapp.Model.User;
 import com.example.foodapp.R;
-import com.example.foodapp.RoomDatabase.CartDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
     private final Context mContext;
     private final RemoveCartItem mCartCallback;
 
-    private ArrayList<Cart> mCart;
+    private ArrayList<Cart> mCartList;
 
     public CartAdapter(Context context, RemoveCartItem cartCallback) {
         this.mContext = context;
@@ -36,26 +30,31 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
     }
 
     public void setCartList(ArrayList<Cart> cartList) {
-        this.mCart = cartList;
+        this.mCartList = cartList;
         notifyDataSetChanged();
+    }
+
+    public Cart getItem(int position) {
+        return mCartList.get(position);
     }
 
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item_layout, parent, false);
-        return new CartAdapter.VH(view);
+        RecyclerView.ViewHolder vh = new VH(view);
+        return (VH) vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        holder.mPosition.setText(String.valueOf(mCart.get(position).cart_id));
-        holder.mTitleItem.setText(mCart.get(position).itemTitle);
-        holder.mPriceItem.setText(mCart.get(position).itemPrice);
+        holder.mPosition.setText(String.valueOf(mCartList.get(position).cart_id));
+        holder.mTitleItem.setText(mCartList.get(position).itemTitle);
+        holder.mPriceItem.setText(mCartList.get(position).itemPrice);
 
-        String foodPrice = mCart.get(position).itemPrice;
-        int noOfItems = mCart.get(position).noOfItems;
-        String foodImage = mCart.get(position).itemImage;
+        String foodPrice = mCartList.get(position).itemPrice;
+        int noOfItems = mCartList.get(position).noOfItems;
+        String foodImage = mCartList.get(position).itemImage;
         holder.mPriceItem.setText(foodPrice + " x " + noOfItems);
 
         int drawableResourceID = mContext.getResources().getIdentifier(foodImage, "drawable", mContext.getPackageName());
@@ -67,22 +66,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
         //Double totalPrice = (price * noOfItems);
         String totalPriceConverted = String.format("%.2f", (price * noOfItems));
         holder.mTotalPrice.setText(totalPriceConverted);
-        int itemPosition = mCart.get(position).cart_id;
+        int itemPosition = mCartList.get(position).cart_id;
 
-        /*holder.mCartItemLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(mContext, "Long pressed cart_id " + itemPosition, Toast.LENGTH_SHORT).show();
-                //removeFromCart(itemPosition);
-                mCartCallback.removeItem(itemPosition);
-                return true;
-            }
-        });*/
     }
 
     @Override
     public int getItemCount() {
-        return (mCart == null) ? 0 : mCart.size();
+        return (mCartList == null) ? 0 : mCartList.size();
     }
 
     public class VH extends RecyclerView.ViewHolder {

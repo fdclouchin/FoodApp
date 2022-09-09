@@ -1,4 +1,4 @@
-package com.example.foodapp;
+package com.example.foodapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.foodapp.Model.User;
+import com.example.foodapp.R;
 import com.example.foodapp.RoomDatabase.AppDatabase;
 
 public class RoomActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.foodapp;
+package com.example.foodapp.Helper;
 
 import android.text.InputFilter;
 import android.text.Spanned;

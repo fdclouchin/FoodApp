@@ -1,4 +1,4 @@
-package com.example.foodapp;
+package com.example.foodapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import com.example.foodapp.Adapters.CategoryAdapter;
 import com.example.foodapp.Adapters.PopularAdapter;
+import com.example.foodapp.Fragments.CartInformationFragment;
 import com.example.foodapp.Interfaces.OnBackPressedFragment;
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.Model.Foods;
+import com.example.foodapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -107,7 +109,11 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
                 }
                 case R.id.cart_floating_button: {
                     CartInformationFragment cartInformationFragment = new CartInformationFragment("Your Cart");
-                    displayCartFragment(cartInformationFragment);
+                    Fragment cartFragment = getSupportFragmentManager().findFragmentByTag("CartFragmentTag");
+                    //only display fragment if not displayed yet
+                    if (cartFragment == null) {
+                        displayCartFragment(cartInformationFragment);
+                    }
                     break;
                 }
             }
@@ -115,10 +121,10 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.o
     };
 
     private void displayCartFragment(Fragment fragment) {
-        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.display_fragment, fragment);
-        fragmentTransaction.commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.display_fragment, fragment, "CartFragmentTag")
+                .commit();
     }
 
     private void displayPizzaCategory() {

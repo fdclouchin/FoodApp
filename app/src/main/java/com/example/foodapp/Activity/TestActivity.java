@@ -1,4 +1,4 @@
-package com.example.foodapp;
+package com.example.foodapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.SearchView;
 
 import com.example.foodapp.Adapters.TestAdapter;
+import com.example.foodapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

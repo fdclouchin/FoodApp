@@ -1,4 +1,4 @@
-package com.example.foodapp;
+package com.example.foodapp.Activity;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -20,6 +20,7 @@ import com.example.foodapp.Adapters.UserListAdapter;
 import com.example.foodapp.Helper.SwipeHelper;
 import com.example.foodapp.Interfaces.ButtonClickListener;
 import com.example.foodapp.Model.User;
+import com.example.foodapp.R;
 import com.example.foodapp.RoomDatabase.AppDatabase;
 
 import java.util.ArrayList;
@@ -69,13 +70,13 @@ public class MainActivity2 extends AppCompatActivity {
         userListAdapter = new UserListAdapter(this);
         mUserRecyclerList.setAdapter(userListAdapter);
 
-        SwipeHelper swipeHelper = new SwipeHelper(this, mUserRecyclerList, 200) {
+        /*SwipeHelper swipeHelper = new SwipeHelper(this, mUserRecyclerList, 200) {
             @Override
             public void instantiateItemButton(RecyclerView.ViewHolder viewHolder, List<SwipeHelper.ItemButton> buffer) {
                 buffer.add(new ItemButton(
                         viewHolder.getAdapterPosition(),
                         MainActivity2.this,
-                        "Delete",
+                        "DELETE",
                         R.drawable.ic_delete,
                         30,
                         Color.parseColor("#FF3C30"),
@@ -89,19 +90,19 @@ public class MainActivity2 extends AppCompatActivity {
                 buffer.add(new ItemButton(
                         viewHolder.getAdapterPosition(),
                         MainActivity2.this,
-                        "Update",
+                        "EDIT",
                         R.drawable.ic_edit,
                         30,
                         Color.parseColor("#FF9502"),
                         new ButtonClickListener() {
                             @Override
                             public void onClick(int position) {
-                                Toast.makeText(MainActivity2.this, "Update?", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity2.this, "EDIT?", Toast.LENGTH_SHORT).show();
                             }
                         }
                 ));
             }
-        };
+        };*/
 
         loadUserList();
     }

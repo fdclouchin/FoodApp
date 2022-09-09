@@ -1,15 +1,18 @@
-package com.example.foodapp;
+package com.example.foodapp.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,7 @@ import com.example.foodapp.Helper.SwipeHelper;
 import com.example.foodapp.Interfaces.ButtonClickListener;
 import com.example.foodapp.Interfaces.OnBackPressedFragment;
 import com.example.foodapp.Model.Cart;
+import com.example.foodapp.R;
 import com.example.foodapp.RoomDatabase.CartDatabase;
 
 import java.util.ArrayList;
@@ -37,6 +41,8 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     private RecyclerView mCartRecyclerView;
     private CartAdapter mCartAdapter;
     private TextView mCartSize;
+    private ProgressDialog mDialog;
+    private ArrayList<Cart> mCartList;
 
     public CartInformationFragment(String title) {
         this.mActionBarTitle = title;
@@ -53,8 +59,11 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
 
         mTitle.setText(mActionBarTitle);
         mBackButton.setOnClickListener(mOnClickListener);
+        mDialog = new ProgressDialog(getContext());
 
-        mCartInformationFragment = (CartInformationFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.display_fragment);
+        mCartInformationFragment = (CartInformationFragment) getActivity()
+                .getSupportFragmentManager()
+                .findFragmentById(R.id.display_fragment);
         initRecyclerView(view);
         return view;
     }
@@ -67,50 +76,86 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         mCartAdapter = new CartAdapter(getContext(), mCartInformationFragment);
         mCartRecyclerView.setAdapter(mCartAdapter);
 
-        SwipeHelper swipeHelper = new SwipeHelper(getContext(), mCartRecyclerView, 200) {
+
+        SwipeHelper swipeHelper = new SwipeHelper(getContext(), mCartRecyclerView, 230) {
             @Override
             public void instantiateItemButton(RecyclerView.ViewHolder viewHolder, List<ItemButton> buffer) {
                 buffer.add(new ItemButton(
                         viewHolder.getAdapterPosition(),
                         getContext(),
-                        "Delete",
-                        R.drawable.ic_delete,
-                        30,
+                        getString(R.string.delete_label).toUpperCase(),
+                        0,
+                        50,
                         Color.parseColor("#FF3C30"),
                         new ButtonClickListener() {
                             @Override
                             public void onClick(int position) {
-                                Toast.makeText(getContext(), "Delete? ", Toast.LENGTH_SHORT).show();
+                                Cart data = mCartAdapter.getItem(position);
+                                int cartID = Integer.parseInt(String.valueOf(data.cart_id));
+                                showRemoveDialog(cartID);
                             }
                         }
                 ));
                 buffer.add(new ItemButton(
                         viewHolder.getAdapterPosition(),
                         getContext(),
-                        "Update",
-                        R.drawable.ic_edit,
-                        30,
+                        getString(R.string.edit_label).toUpperCase(),
+                        0,
+                        50,
                         Color.parseColor("#FF9502"),
                         new ButtonClickListener() {
                             @Override
                             public void onClick(int position) {
-                                Toast.makeText(getContext(), "Update?", Toast.LENGTH_SHORT).show();
+                                Cart data = mCartAdapter.getItem(position);
+                                int cartID = Integer.parseInt(String.valueOf(data.cart_id));
+
+                                EditCartItemFragment editCartItemFragment = new EditCartItemFragment();
+                                displayEditCartItem(editCartItemFragment);
+
+                                Toast.makeText(getContext(), "EDIT?" + position + " Cart ID: " + cartID, Toast.LENGTH_SHORT).show();
                             }
                         }
                 ));
             }
         };
 
-        loadCartList();
+        loadProgressDialog();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadCartList();
+            }
+        }, 1000);
+    }
+
+    private void displayEditCartItem(Fragment fragment) {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.display_fragment, fragment)
+                .commit();
+    }
+
+    private void loadProgressDialog() {
+        mDialog.setTitle(R.string.loading_label);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setCancelable(false);
+        mDialog.show();
     }
 
     private void loadCartList() {
-        CartDatabase db = CartDatabase.getDbInstance(getContext().getApplicationContext());
-        ArrayList<Cart> cartList = (ArrayList<Cart>) db.cartDao().getAllCart();
-        if (cartList != null) {
-            mCartAdapter.setCartList(cartList);
+        initDB();
+        if (mCartList != null) {
+            mCartAdapter.setCartList(mCartList);
         }
-        mCartSize.setText("(" + cartList.size() + ")");
+        mCartSize.setText("(" + mCartList.size() + ")");
+
+        mDialog.dismiss();
+    }
+
+    private void initDB() {
+        CartDatabase db = CartDatabase.getDbInstance(getContext().getApplicationContext());
+        mCartList = (ArrayList<Cart>) db.cartDao().getAllCart();
     }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -119,16 +164,6 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
             getParentFragmentManager().beginTransaction().remove(mCartInformationFragment).commit();
         }
     };
-
-    @Override
-    public boolean onBackPressed() {
-        if (mCartInformationFragment != null && mCartInformationFragment.isVisible()) {
-            getParentFragmentManager().beginTransaction().remove(mCartInformationFragment).commit();
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     @Override
     public void removeItem(int cartID) {
@@ -145,8 +180,26 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                     public void onClick(DialogInterface arg0, int arg1) {
                         CartDatabase db = CartDatabase.getDbInstance(getContext());
                         db.cartDao().deleteFromCart(cartID);
-                        loadCartList();
+                        loadProgressDialog();
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadCartList();
+                            }
+                        }, 1000);
                     }
                 }).create().show();
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (mCartInformationFragment != null && mCartInformationFragment.isVisible()) {
+            getParentFragmentManager().beginTransaction().remove(mCartInformationFragment).commit();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

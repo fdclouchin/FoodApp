@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">FoodApp</string>
+    <string name="edit_label">Edit</string>
+    <string name="delete_label">Delete</string>
+    <string name="loading_label">Loading</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="plus_add">+ Add</string>
+    <string name="update_item">Update item</string>
 </resources>

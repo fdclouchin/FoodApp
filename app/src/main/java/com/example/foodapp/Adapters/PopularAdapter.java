@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.foodapp.FoodInformationFragment;
+import com.example.foodapp.Fragments.FoodInformationFragment;
 import com.example.foodapp.Model.Foods;
 import com.example.foodapp.R;
 
@@ -85,10 +84,10 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
     }
 
     private void displayFoodItem(Fragment fragment) {
-        FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.display_fragment, fragment);
-        fragmentTransaction.commit();
+        ((AppCompatActivity) mContext).getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.display_fragment, fragment)
+                .commit();
     }
 
     @Override

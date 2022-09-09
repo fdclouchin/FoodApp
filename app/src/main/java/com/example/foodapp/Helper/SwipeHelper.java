@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.GestureDetector;
@@ -17,10 +18,13 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodapp.Activity.MainActivity;
 import com.example.foodapp.Interfaces.ButtonClickListener;
+import com.example.foodapp.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,14 +34,15 @@ import java.util.Map;
 import java.util.Queue;
 
 public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
-    int mButtonWidth;
-    private RecyclerView mRecyclerView;
+    private final GestureDetector mGestureDetector;
+    private final RecyclerView mRecyclerView;
+    private final Map<Integer, List<ItemButton>> mButtonBuffer;
+    private final Queue<Integer> mRemoverQueue;
+    private final int mButtonWidth;
+
     private List<ItemButton> mButtonList;
-    private GestureDetector mGestureDetector;
     private int mSwipePosition = -1;
     private float mSwipeThreshold = 0.5f;
-    private Map<Integer, List<ItemButton>> mButtonBuffer;
-    private Queue<Integer> mRemoverQueue;
 
     private GestureDetector.SimpleOnGestureListener gestureListener = new GestureDetector.SimpleOnGestureListener() {
         @Override
@@ -56,6 +61,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
             if (mSwipePosition < 0) return false;
             Point point = new Point((int) event.getRawX(), (int) event.getRawY());
             RecyclerView.ViewHolder swipeViewHolder = mRecyclerView.findViewHolderForAdapterPosition(mSwipePosition);
+            if(swipeViewHolder == null) return false; //handle crash after delete
             View swipedItem = swipeViewHolder.itemView;
             Rect rect = new Rect();
             swipedItem.getGlobalVisibleRect(rect);
@@ -142,6 +148,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
             canvas.drawRect(rectF, paint);
             paint.setColor(Color.WHITE);
             paint.setTextSize(textSize);
+            paint.setTypeface(ResourcesCompat.getFont(context, R.font.ubuntu_bold));
 
             Rect rect = new Rect();
             float cHeight = rectF.height();
@@ -155,7 +162,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
                 canvas.drawText(text, rectF.left + x, rectF.top + y, paint);
             } else {
                 Drawable drawable = ContextCompat.getDrawable(context, imageResID);
-                Bitmap bitmap = drawbleToBitmap(drawable);
+                Bitmap bitmap = drawableToBitmap(drawable);
                 canvas.drawBitmap(bitmap, (rectF.left + rectF.right) / 2, (rectF.top + rectF.bottom) / 2, paint);
             }
             clickRegion = rectF;
@@ -163,7 +170,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
         }
     }
 
-    private Bitmap drawbleToBitmap(Drawable drawable) {
+    private Bitmap drawableToBitmap(Drawable drawable) {
         if (drawable instanceof BitmapDrawable)
             return ((BitmapDrawable) drawable).getBitmap();
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
@@ -231,6 +238,10 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
                 translationX = dX * buffer.size() * mButtonWidth / itemView.getWidth();
                 drawButton(c, itemView, buffer, pos, translationX);
             }
+        }
+        float newDx = dX;
+        if (newDx >= 150f) {
+            newDx = 150f;
         }
         super.onChildDraw(c, recyclerView, viewHolder, translationX, dY, actionState, isCurrentlyActive);
     }

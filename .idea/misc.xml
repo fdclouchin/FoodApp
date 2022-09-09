@@ -29,6 +29,7 @@
         <entry key="app/src/main/res/layout/category_list_item.xml" value="0.3020833333333333" />
         <entry key="app/src/main/res/layout/foods_list_item.xml" value="0.67" />
         <entry key="app/src/main/res/layout/fragment_cart_information.xml" value="0.353125" />
+        <entry key="app/src/main/res/layout/fragment_edit_cart_item.xml" value="0.20092592592592592" />
         <entry key="app/src/main/res/layout/fragment_food_information.xml" value="0.33" />
         <entry key="app/src/main/res/layout/intro_main.xml" value="0.21843434343434343" />
         <entry key="app/src/main/res/layout/main_menu.xml" value="0.23703703703703705" />

@@ -27,12 +27,12 @@
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/ubuntu_bold"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/summary_image"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="70dp"
             android:layout_weight="0.5"
             android:src="@drawable/cat_1" />
 
@@ -45,7 +45,7 @@
             android:fontFamily="@font/ubuntu_bold"
             android:text="Item_title"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/summary_no_of_items"
@@ -57,7 +57,7 @@
             android:gravity="center_horizontal"
             android:text="number_of_items"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/summary_total_per_item"
@@ -70,7 +70,7 @@
             android:gravity="start"
             android:text="total"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

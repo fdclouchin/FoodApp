@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.foodapp.MainActivity;
+import com.example.foodapp.Activity.MainActivity;
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.R;
 
