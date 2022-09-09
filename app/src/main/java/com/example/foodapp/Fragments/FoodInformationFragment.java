@@ -29,7 +29,6 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
     private static final String FOOD_PRICE = "FOOD_PRICE";
     private static final String FOOD_DESCRIPTION = "FOOD_DESCRIPTION";
     private static final String FOOD_IMG = "FOOD_IMAGE";
-    //private static final String NO_OF_ITEMS = "NO_OF_ITEMS";
 
     private TextView mFoodTitle;
     private TextView mFoodPrice;
@@ -41,11 +40,10 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
     private ImageView mAdd;
     private EditText mItemCount;
 
-    private FoodInformationFragment foodInfoFragment;
+    private FoodInformationFragment mFoodInfoFragment;
     private ImageView mInfoFoodImage;
 
     public FoodInformationFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -54,15 +52,15 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_food_information, container, false);
 
-        mFoodTitle = view.findViewById(R.id.food_edit_title_view);
-        mFoodPrice = view.findViewById(R.id.food_edit_price_view);
-        mFoodDescription = view.findViewById(R.id.food_edit_descriptions_view);
-        mCloseModal = view.findViewById(R.id.close_edit_modal);
-        mInfoAddToCart = view.findViewById(R.id.add_to_cart_edit_info_button);
-        mInfoFoodImage = view.findViewById(R.id.food_edit_info_image);
-        mSubtract = view.findViewById(R.id.subtract_edit_item);
-        mAdd = view.findViewById(R.id.add_edit_item);
-        mItemCount = view.findViewById(R.id.item_edit_count);
+        mFoodTitle = view.findViewById(R.id.food_title_view);
+        mFoodPrice = view.findViewById(R.id.food_price_view);
+        mFoodDescription = view.findViewById(R.id.food_descriptions_view);
+        mCloseModal = view.findViewById(R.id.close_modal);
+        mInfoAddToCart = view.findViewById(R.id.add_to_cart_info_button);
+        mInfoFoodImage = view.findViewById(R.id.food_info_image);
+        mSubtract = view.findViewById(R.id.subtract_item);
+        mAdd = view.findViewById(R.id.add_item);
+        mItemCount = view.findViewById(R.id.item_count);
         //set minimum/maximum values
         mItemCount.setFilters(new InputFilter[]{new MinMaxFilter("1", "99")});
 
@@ -73,7 +71,9 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
 
         checkItemCount();
 
-        foodInfoFragment = (FoodInformationFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.display_fragment);
+        mFoodInfoFragment = (FoodInformationFragment) getActivity()
+                .getSupportFragmentManager()
+                .findFragmentById(R.id.display_fragment);
         getBundles();
         return view;
     }
@@ -92,15 +92,14 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.close_edit_modal: {
-                    Toast.makeText(getActivity(), "Close", Toast.LENGTH_SHORT).show();
-                    getParentFragmentManager().beginTransaction().remove(foodInfoFragment).commit();
+                case R.id.close_modal: {
+                    getParentFragmentManager().beginTransaction().remove(mFoodInfoFragment).commit();
                     //Hide keyboard
                     InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mItemCount.getWindowToken(), 0);
                     break;
                 }
-                case R.id.add_to_cart_edit_info_button: {
+                case R.id.add_to_cart_info_button: {
                     if (mItemCount != null) {
                         Toast.makeText(getActivity(), "Add to cart", Toast.LENGTH_SHORT).show();
 
@@ -115,7 +114,7 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
                     }
                     break;
                 }
-                case R.id.subtract_edit_item: {
+                case R.id.subtract_item: {
                     String itemCountValue = mItemCount.getText().toString();
                     int itemCount = Integer.parseInt(itemCountValue);
                     itemCount--;
@@ -123,7 +122,7 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
                     checkItemCount();
                     break;
                 }
-                case R.id.add_edit_item: {
+                case R.id.add_item: {
                     String itemCountValue = mItemCount.getText().toString();
                     int itemCount = Integer.parseInt(itemCountValue);
                     itemCount++;
@@ -167,8 +166,8 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
 
     @Override
     public boolean onBackPressed() {
-        if (foodInfoFragment != null && foodInfoFragment.isVisible()) {
-            getParentFragmentManager().beginTransaction().remove(foodInfoFragment).commit();
+        if (mFoodInfoFragment != null && mFoodInfoFragment.isVisible()) {
+            getParentFragmentManager().beginTransaction().remove(mFoodInfoFragment).commit();
             return true;
         } else {
             return false;

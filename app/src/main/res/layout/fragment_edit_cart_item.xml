@@ -75,18 +75,6 @@
                 android:layout_marginTop="10dp"
                 android:contentDescription="food_image" />
 
-            <TextView
-                android:id="@+id/food_edit_descriptions_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/ubuntu_bold"
-                android:gravity="center_horizontal"
-                android:text="Food_description"
-                android:textColor="#000"
-                android:textSize="20sp" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

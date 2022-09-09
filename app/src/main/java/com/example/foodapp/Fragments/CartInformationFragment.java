@@ -32,6 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartInformationFragment extends Fragment implements OnBackPressedFragment, CartAdapter.RemoveCartItem {
+    private static final String CART_ID = "CART_ID";
+    private static final String ITEM_NAME = "ITEM_NAME";
+    private static final String ITEM_IMAGE = "ITEM_IMAGE";
+    private static final String NO_OF_ITEMS = "NO_OF_ITEMS";
 
     private final String mActionBarTitle;
     private CartInformationFragment mCartInformationFragment;
@@ -108,11 +112,18 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                             public void onClick(int position) {
                                 Cart data = mCartAdapter.getItem(position);
                                 int cartID = Integer.parseInt(String.valueOf(data.cart_id));
+                                String cartItemName = data.itemTitle;
+                                String cartItemImage = data.itemImage;
+                                int cartNumberOfItems = data.noOfItems;
 
+                                Bundle updateBundle = new Bundle();
+                                updateBundle.putInt(CART_ID, cartID);
+                                updateBundle.putString(ITEM_NAME, cartItemName);
+                                updateBundle.putString(ITEM_IMAGE, cartItemImage);
+                                updateBundle.putInt(NO_OF_ITEMS, cartNumberOfItems);
                                 EditCartItemFragment editCartItemFragment = new EditCartItemFragment();
+                                editCartItemFragment.setArguments(updateBundle);
                                 displayEditCartItem(editCartItemFragment);
-
-                                Toast.makeText(getContext(), "EDIT?" + position + " Cart ID: " + cartID, Toast.LENGTH_SHORT).show();
                             }
                         }
                 ));
