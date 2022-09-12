@@ -3,11 +3,9 @@ package com.example.foodapp.Fragments;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.foodapp.Adapters.CartAdapter;
 import com.example.foodapp.Helper.SwipeHelper;
@@ -31,9 +28,10 @@ import com.example.foodapp.RoomDatabase.CartDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartInformationFragment extends Fragment implements OnBackPressedFragment, CartAdapter.RemoveCartItem {
+public class CartInformationFragment extends Fragment implements OnBackPressedFragment, EditCartItemFragment.RefreshCart {
     private static final String CART_ID = "CART_ID";
     private static final String ITEM_NAME = "ITEM_NAME";
+    private static final String ITEM_PRICE = "ITEM_PRICE";
     private static final String ITEM_IMAGE = "ITEM_IMAGE";
     private static final String NO_OF_ITEMS = "NO_OF_ITEMS";
 
@@ -47,6 +45,9 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     private TextView mCartSize;
     private ProgressDialog mDialog;
     private ArrayList<Cart> mCartList;
+    private TextView mSubTotal;
+
+    private CartDatabase cartDB;
 
     public CartInformationFragment(String title) {
         this.mActionBarTitle = title;
@@ -60,10 +61,13 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         mBackButton = view.findViewById(R.id.back_button);
         mTitle = view.findViewById(R.id.text_view_title);
         mCartSize = view.findViewById(R.id.cart_size);
+        mSubTotal = view.findViewById(R.id.sub_total_price);
 
         mTitle.setText(mActionBarTitle);
         mBackButton.setOnClickListener(mOnClickListener);
         mDialog = new ProgressDialog(getContext());
+
+        cartDB = CartDatabase.getDbInstance(getContext().getApplicationContext());
 
         mCartInformationFragment = (CartInformationFragment) getActivity()
                 .getSupportFragmentManager()
@@ -77,10 +81,21 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         mCartRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        mCartAdapter = new CartAdapter(getContext(), mCartInformationFragment);
+        mCartAdapter = new CartAdapter(getContext());
         mCartRecyclerView.setAdapter(mCartAdapter);
+        loadProgressDialog();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadCartList();
+            }
+        }, 1000);
 
+        swipeHelper();
+    }
 
+    private void swipeHelper() {
         SwipeHelper swipeHelper = new SwipeHelper(getContext(), mCartRecyclerView, 230) {
             @Override
             public void instantiateItemButton(RecyclerView.ViewHolder viewHolder, List<ItemButton> buffer) {
@@ -113,31 +128,25 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                                 Cart data = mCartAdapter.getItem(position);
                                 int cartID = Integer.parseInt(String.valueOf(data.cart_id));
                                 String cartItemName = data.itemTitle;
+                                String cartItemPrice = data.itemPrice;
                                 String cartItemImage = data.itemImage;
                                 int cartNumberOfItems = data.noOfItems;
 
                                 Bundle updateBundle = new Bundle();
                                 updateBundle.putInt(CART_ID, cartID);
                                 updateBundle.putString(ITEM_NAME, cartItemName);
+                                updateBundle.putString(ITEM_PRICE, cartItemPrice);
                                 updateBundle.putString(ITEM_IMAGE, cartItemImage);
                                 updateBundle.putInt(NO_OF_ITEMS, cartNumberOfItems);
                                 EditCartItemFragment editCartItemFragment = new EditCartItemFragment();
                                 editCartItemFragment.setArguments(updateBundle);
+                                editCartItemFragment.setRefreshCartCallback(CartInformationFragment.this);
                                 displayEditCartItem(editCartItemFragment);
                             }
                         }
                 ));
             }
         };
-
-        loadProgressDialog();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadCartList();
-            }
-        }, 1000);
     }
 
     private void displayEditCartItem(Fragment fragment) {
@@ -155,18 +164,28 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     }
 
     private void loadCartList() {
-        initDB();
+        mCartList = new ArrayList<>();
+
+        mCartList = (ArrayList<Cart>) cartDB.cartDao().getAllCart();
         if (mCartList != null) {
             mCartAdapter.setCartList(mCartList);
         }
         mCartSize.setText("(" + mCartList.size() + ")");
+        if (mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
 
-        mDialog.dismiss();
+        getSubTotal();
     }
 
-    private void initDB() {
-        CartDatabase db = CartDatabase.getDbInstance(getContext().getApplicationContext());
-        mCartList = (ArrayList<Cart>) db.cartDao().getAllCart();
+    public double getSubTotal() {
+        double totalPrice =0.0d;
+        for (int i = 0; i < mCartList.size(); i++)
+        {
+            totalPrice += (Double.parseDouble(mCartList.get(i).getItemPrice()) * mCartList.get(i).getNoOfItems());
+        }
+        mSubTotal.setText(String.format("%.2f", totalPrice));
+        return totalPrice;
     }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -176,11 +195,6 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         }
     };
 
-    @Override
-    public void removeItem(int cartID) {
-        showRemoveDialog(cartID);
-    }
-
     private void showRemoveDialog(int cartID) {
         new AlertDialog.Builder(getContext())
                 //.setTitle("Your Cart")
@@ -189,8 +203,7 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        CartDatabase db = CartDatabase.getDbInstance(getContext());
-                        db.cartDao().deleteFromCart(cartID);
+                        cartDB.cartDao().deleteFromCart(cartID);
                         loadProgressDialog();
 
                         Handler handler = new Handler();
@@ -212,5 +225,10 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void refreshCartList() {
+        loadCartList();
     }
 }

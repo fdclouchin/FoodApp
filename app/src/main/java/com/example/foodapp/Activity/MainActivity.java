@@ -21,7 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements CategoryAdapter.onClickCategory {
+public class MainActivity extends AppCompatActivity implements CategoryAdapter.OnClickCategory {
 
     private RecyclerView mCategoryListRecyclerView;
     private RecyclerView mPopularListRecyclerView;

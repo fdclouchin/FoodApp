@@ -28,7 +28,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     //interfaces
-    public interface onClickCategory {
+    public interface OnClickCategory {
         void clickCategory(String catTitle);
     }
 

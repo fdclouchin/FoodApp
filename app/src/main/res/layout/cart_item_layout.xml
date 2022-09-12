@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,12 +23,13 @@
             android:id="@+id/cart_position"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:text="pos"
             android:layout_gravity="center_vertical"
+            android:layout_weight="0.2"
             android:fontFamily="@font/ubuntu_bold"
+            android:text="pos"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/summary_image"
@@ -41,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:fontFamily="@font/ubuntu_bold"
             android:text="Item_title"
             android:textColor="@color/black"
@@ -52,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.8"
+            android:layout_weight="0.5"
             android:fontFamily="@font/ubuntu_regular"
             android:gravity="center_horizontal"
             android:text="number_of_items"
@@ -60,17 +62,28 @@
             android:textSize="14sp" />
 
         <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_weight="0.1"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="@string/system_currency"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
             android:id="@+id/summary_total_per_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_marginStart="2dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="0.5"
-            android:fontFamily="@font/ubuntu_regular"
-            android:gravity="start"
+            android:fontFamily="@font/ubuntu_bold"
+            android:gravity="end"
             android:text="total"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

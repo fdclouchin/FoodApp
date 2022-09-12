@@ -20,6 +20,8 @@ public interface CartDao {
     @Query("DELETE FROM cart WHERE `cart_id`=:id")
     void deleteFromCart(int id);
 
-    @Query("UPDATE cart set item_title= :itemTitle, item_price= :itemPrice, no_of_items= :noOfItems, item_image= :itemImage WHERE cart_id=:id ")
-    void updateData(String itemTitle, String itemPrice, int noOfItems, String itemImage, int id);
+    /*@Query("UPDATE cart set item_title= :itemTitle, item_price= :itemPrice, no_of_items= :noOfItems, item_image= :itemImage WHERE cart_id=:id ")
+    void updateData(String itemTitle, String itemPrice, int noOfItems, String itemImage, int id);*/
+    @Query("UPDATE cart set no_of_items= :noOfItems WHERE cart_id=:cartID ")
+    void updateData(int noOfItems, int cartID);
 }

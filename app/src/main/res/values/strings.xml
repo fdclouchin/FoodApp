@@ -3,8 +3,9 @@
     <string name="edit_label">Edit</string>
     <string name="delete_label">Delete</string>
     <string name="loading_label">Loading</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="plus_add">+ Add</string>
     <string name="update_item">Update item</string>
+    <string name="system_currency">$</string>
+    <string name="sub_total">Sub Total</string>
+    <string name="order_summary">Order Summary</string>
 </resources>

@@ -20,13 +20,11 @@ import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
     private final Context mContext;
-    private final RemoveCartItem mCartCallback;
 
     private ArrayList<Cart> mCartList;
 
-    public CartAdapter(Context context, RemoveCartItem cartCallback) {
+    public CartAdapter(Context context) {
         this.mContext = context;
-        this.mCartCallback = cartCallback;
     }
 
     public void setCartList(ArrayList<Cart> cartList) {
@@ -66,8 +64,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
         //Double totalPrice = (price * noOfItems);
         String totalPriceConverted = String.format("%.2f", (price * noOfItems));
         holder.mTotalPrice.setText(totalPriceConverted);
-        int itemPosition = mCartList.get(position).cart_id;
-
     }
 
     @Override
@@ -92,9 +88,5 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
             mTotalPrice = itemView.findViewById(R.id.summary_total_per_item);
             mCartItemLayout = itemView.findViewById(R.id.cart_item_layout);
         }
-    }
-
-    public interface RemoveCartItem {
-        void removeItem(int cartID);
     }
 }

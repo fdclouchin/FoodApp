@@ -29,7 +29,8 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/ubuntu_bold"
-                android:text="Order Summary"
+                android:text="@string/order_summary"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,20 +40,61 @@
                 android:id="@+id/cart_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="-"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/order_summary_label"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.02"
                 app:layout_constraintStart_toEndOf="@+id/order_summary_label"
                 app:layout_constraintTop_toTopOf="@+id/order_summary_label" />
 
+            <TextView
+                android:id="@+id/sub_total_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="@string/sub_total"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/order_summary_label"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/order_summary_label"
+                app:layout_constraintTop_toBottomOf="@+id/order_summary_label" />
+
+            <TextView
+                android:id="@+id/sub_total_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="@string/system_currency"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/sub_total_label"
+                app:layout_constraintStart_toEndOf="@+id/sub_total_label"
+                app:layout_constraintTop_toTopOf="@+id/sub_total_label" />
+
+            <TextView
+                android:id="@+id/sub_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="-"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/sub_total_currency"
+                app:layout_constraintStart_toEndOf="@+id/sub_total_currency"
+                app:layout_constraintTop_toTopOf="@+id/sub_total_currency" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,21 +103,27 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
             app:layout_constraintVertical_bias="0.0">
 
-            <ScrollView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
+                android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/cart_recycler_view"
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
 
-            </ScrollView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/cart_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </ScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <include
             android:id="@+id/include"
