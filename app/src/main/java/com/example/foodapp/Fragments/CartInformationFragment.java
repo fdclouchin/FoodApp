@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.foodapp.Adapters.CartAdapter;
 import com.example.foodapp.Helper.SwipeHelper;
+import com.example.foodapp.Helper.SwipeHelper2;
 import com.example.foodapp.Interfaces.ButtonClickListener;
 import com.example.foodapp.Interfaces.OnBackPressedFragment;
 import com.example.foodapp.Model.Cart;
@@ -108,7 +110,56 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
             }
         }, 1000);
 
-        swipeHelper();
+        //swipeHelper();
+        swipeHelper2();
+    }
+
+    private void swipeHelper2() {
+        SwipeHelper2 swipeHelper = new SwipeHelper2(getContext(), mCartRecyclerView, 200) {
+            @Override
+            public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
+                underlayButtons.add(new SwipeHelper2.UnderlayButton(
+                        getString(R.string.delete_label).toUpperCase(),
+                        R.drawable.pop_2,
+                        ContextCompat.getColor(getContext(), R.color.light_orange),
+                        new SwipeHelper2.UnderlayButtonClickListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                Cart data = mCartAdapter.getItem(pos);
+                                int cartID = Integer.parseInt(String.valueOf(data.cart_id));
+                                showRemoveDialog(cartID);
+                            }
+                        }
+                ));
+                underlayButtons.add(new SwipeHelper2.UnderlayButton(
+                        getString(R.string.edit_label).toUpperCase(),
+                        0,
+                        ContextCompat.getColor(getContext(), R.color.red),
+                        new SwipeHelper2.UnderlayButtonClickListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                Cart data = mCartAdapter.getItem(pos);
+                                int cartID = Integer.parseInt(String.valueOf(data.cart_id));
+                                String cartItemName = data.itemTitle;
+                                String cartItemPrice = data.itemPrice;
+                                String cartItemImage = data.itemImage;
+                                int cartNumberOfItems = data.noOfItems;
+
+                                Bundle updateBundle = new Bundle();
+                                updateBundle.putInt(CART_ID, cartID);
+                                updateBundle.putString(ITEM_NAME, cartItemName);
+                                updateBundle.putString(ITEM_PRICE, cartItemPrice);
+                                updateBundle.putString(ITEM_IMAGE, cartItemImage);
+                                updateBundle.putInt(NO_OF_ITEMS, cartNumberOfItems);
+                                EditCartItemFragment editCartItemFragment = new EditCartItemFragment();
+                                editCartItemFragment.setArguments(updateBundle);
+                                editCartItemFragment.setRefreshCartCallback(CartInformationFragment.this);
+                                displayEditCartItem(editCartItemFragment);
+                            }
+                        }
+                ));
+            }
+        };
     }
 
     private void swipeHelper() {
