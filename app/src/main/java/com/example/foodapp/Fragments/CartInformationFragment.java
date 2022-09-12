@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodapp.Adapters.CartAdapter;
 import com.example.foodapp.Helper.SwipeHelper;
@@ -45,7 +47,14 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     private TextView mCartSize;
     private ProgressDialog mDialog;
     private ArrayList<Cart> mCartList;
+
     private TextView mSubTotal;
+    private TextView mVatTaxTotal;
+    private TextView mCartTotal;
+    private TextView mCheckout;
+
+    private double totalPrice;
+    private double vatTotal;
 
     private CartDatabase cartDB;
 
@@ -62,8 +71,13 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         mTitle = view.findViewById(R.id.text_view_title);
         mCartSize = view.findViewById(R.id.cart_size);
         mSubTotal = view.findViewById(R.id.sub_total_price);
+        mVatTaxTotal = view.findViewById(R.id.vat_tax_total);
+        mCartTotal = view.findViewById(R.id.cart_total);
+        mCheckout = view.findViewById(R.id.check_out_button);
 
         mTitle.setText(mActionBarTitle);
+
+        mCheckout.setOnClickListener(mOnClickListener);
         mBackButton.setOnClickListener(mOnClickListener);
         mDialog = new ProgressDialog(getContext());
 
@@ -73,6 +87,8 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                 .getSupportFragmentManager()
                 .findFragmentById(R.id.display_fragment);
         initRecyclerView(view);
+
+        //((SimpleItemAnimator) mCartRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         return view;
     }
 
@@ -170,18 +186,32 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         if (mCartList != null) {
             mCartAdapter.setCartList(mCartList);
         }
+
         mCartSize.setText("(" + mCartList.size() + ")");
         if (mDialog.isShowing()) {
             mDialog.dismiss();
         }
 
         getSubTotal();
+        getVatTotal();
+        getTotal();
+    }
+
+    private double getTotal() {
+        double cartTotal = totalPrice + vatTotal;
+        mCartTotal.setText("$" + String.format("%.2f", cartTotal));
+        return cartTotal;
+    }
+
+    private double getVatTotal() {
+        vatTotal = totalPrice * 0.12;
+        mVatTaxTotal.setText(String.format("%.2f", vatTotal));
+        return vatTotal;
     }
 
     public double getSubTotal() {
-        double totalPrice =0.0d;
-        for (int i = 0; i < mCartList.size(); i++)
-        {
+        totalPrice = 0.0d;
+        for (int i = 0; i < mCartList.size(); i++) {
             totalPrice += (Double.parseDouble(mCartList.get(i).getItemPrice()) * mCartList.get(i).getNoOfItems());
         }
         mSubTotal.setText(String.format("%.2f", totalPrice));
@@ -191,7 +221,17 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            getParentFragmentManager().beginTransaction().remove(mCartInformationFragment).commit();
+            switch (v.getId()) {
+                case R.id.back_button: {
+                    getParentFragmentManager().beginTransaction().remove(mCartInformationFragment).commit();
+                    break;
+
+                }
+                case R.id.check_out_button: {
+                    Toast.makeText(getContext(), "Checkout has been clicked", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+            }
         }
     };
 

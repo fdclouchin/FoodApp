@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="100dp"
     tools:context=".Fragments.CartInformationFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,8 +16,10 @@
             android:id="@+id/constraintLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/light_orange"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include">
 
@@ -27,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/order_summary"
                 android:textAllCaps="true"
@@ -53,12 +53,12 @@
                 android:id="@+id/sub_total_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/sub_total"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/order_summary_label"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/order_summary_label"
@@ -68,62 +68,131 @@
                 android:id="@+id/sub_total_currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/system_currency"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/sub_total_label"
+                app:layout_constraintEnd_toStartOf="@+id/sub_total_price"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/sub_total_label"
-                app:layout_constraintTop_toTopOf="@+id/sub_total_label" />
+                app:layout_constraintTop_toTopOf="@+id/sub_total_label"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/sub_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginEnd="15dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="-"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/sub_total_currency"
-                app:layout_constraintStart_toEndOf="@+id/sub_total_currency"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/sub_total_currency" />
 
+            <TextView
+                android:id="@+id/vat_tax_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="@string/vat_tax_12"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/sub_total_label"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/sub_total_label"
+                app:layout_constraintTop_toBottomOf="@+id/sub_total_label" />
 
+            <TextView
+                android:id="@+id/vat_tax_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="@string/system_currency"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/vat_tax_label"
+                app:layout_constraintEnd_toStartOf="@+id/vat_tax_total"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/vat_tax_label"
+                app:layout_constraintTop_toTopOf="@+id/vat_tax_label"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/vat_tax_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="-"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/vat_tax_currency"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/vat_tax_currency" />
+
+            <TextView
+                android:id="@+id/total_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="@string/total_label"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/vat_tax_label"
+                app:layout_constraintTop_toBottomOf="@+id/vat_tax_label" />
+
+            <TextView
+                android:id="@+id/cart_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="-"
+                android:textColor="@color/orange"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/total_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.954"
+                app:layout_constraintStart_toEndOf="@+id/total_label"
+                app:layout_constraintTop_toTopOf="@+id/total_label"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/check_out_button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/ubuntu_bold"
+                android:gravity="center_horizontal"
+                android:padding="4dp"
+                android:text="@string/checkout_label"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cart_total"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cart_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:splitMotionEvents="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-            app:layout_constraintVertical_bias="0.0">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/cart_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-                </ScrollView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
         <include
             android:id="@+id/include"

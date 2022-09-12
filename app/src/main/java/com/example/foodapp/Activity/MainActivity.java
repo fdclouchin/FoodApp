@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     private void displayCartFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.display_fragment, fragment, "CartFragmentTag")
+                .replace(R.id.display_fragment, fragment, "CartFragmentTag")
                 .commit();
     }
 

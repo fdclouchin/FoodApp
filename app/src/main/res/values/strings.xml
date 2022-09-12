@@ -8,4 +8,7 @@
     <string name="system_currency">$</string>
     <string name="sub_total">Sub Total</string>
     <string name="order_summary">Order Summary</string>
+    <string name="vat_tax_12">VAT Tax (12%)</string>
+    <string name="total_label">Total</string>
+    <string name="checkout_label">Checkout</string>
 </resources>

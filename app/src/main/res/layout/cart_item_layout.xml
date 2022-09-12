@@ -44,7 +44,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.6"
+            android:ellipsize="end"
             android:fontFamily="@font/ubuntu_bold"
+            android:maxLines="2"
+            android:scrollHorizontally="true"
             android:text="Item_title"
             android:textColor="@color/black"
             android:textSize="14sp" />
@@ -53,8 +56,8 @@
             android:id="@+id/summary_no_of_items"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
+            android:textAlignment="center"
             android:fontFamily="@font/ubuntu_regular"
             android:gravity="center_horizontal"
             android:text="number_of_items"
@@ -62,23 +65,12 @@
             android:textSize="14sp" />
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_weight="0.1"
-            android:fontFamily="@font/ubuntu_regular"
-            android:text="@string/system_currency"
-            android:textAlignment="textEnd"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <TextView
             android:id="@+id/summary_total_per_item"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginEnd="10dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.35"
             android:fontFamily="@font/ubuntu_bold"
             android:gravity="end"
             android:text="total"

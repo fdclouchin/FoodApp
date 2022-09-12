@@ -1,6 +1,7 @@
 package com.example.foodapp.Adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
         return mCartList.get(position);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,9 +67,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
                 .into(holder.mImageItem);
 
         Double price = Double.valueOf(foodPrice);
-        //Double totalPrice = (price * noOfItems);
         String totalPriceConverted = String.format("%.2f", (price * noOfItems));
-        holder.mTotalPrice.setText(totalPriceConverted);
+        holder.mTotalPrice.setText("$ " + totalPriceConverted);
     }
 
     @Override
@@ -89,4 +94,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
             mCartItemLayout = itemView.findViewById(R.id.cart_item_layout);
         }
     }
+
+    /*public String getSafeSubstring(String s, int maxLength){
+        if(!TextUtils.isEmpty(s)){
+            if(s.length() >= maxLength){
+                return s.substring(0, maxLength);
+            }
+        }
+        return s;
+    }*/
 }

@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Queue;
 
 public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
@@ -107,8 +108,9 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
     private synchronized void recoverSwipedItem() {
         while (!mRemoverQueue.isEmpty()) {
             int pos = mRemoverQueue.poll();
-            if (pos > -1)
+            if (pos > 1) {
                 mRecyclerView.getAdapter().notifyItemChanged(pos);
+            }
         }
     }
 

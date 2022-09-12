@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="@font/ubuntu_bold"
                     android:text="Order and Eat"
                     android:textColor="#000000"
@@ -76,16 +76,15 @@
 
                 <ImageView
                     android:id="@+id/profile_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
                     app:layout_constraintBottom_toTopOf="@+id/search_food"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintVertical_bias="0.307"
                     app:srcCompat="@drawable/profile" />
 
                 <androidx.appcompat.widget.SearchView
@@ -104,29 +103,6 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/order_and_eat" />
-
-                <!--<EditText
-                    android:id="@+id/search_food"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/search_background"
-                    android:drawableStart="@drawable/search"
-                    android:focusable="true"
-                    android:fontFamily="@font/ubuntu_bold"
-                    android:hint="   Find your food"
-                    android:paddingStart="15dp"
-                    android:textSize="16sp"
-                    android:textStyle="italic"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/order_and_eat" />-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
@@ -292,8 +268,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/white"
+        android:layout_height="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -302,12 +277,12 @@
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
             android:backgroundTint="#E1E1E1"
-            app:fabCradleMargin="10dp"
-            app:fabCradleRoundedCornerRadius="10dp"
-            app:fabCradleVerticalOffset="8dp">
+            app:fabCradleMargin="10dp" >
+        <!--aapp:fabCradleRoundedCornerRadius="10dp"
+        pp:fabCradleVerticalOffset="1dp">-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -330,7 +305,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_home"
-                        app:tint="#ff5e00" />
+                        app:tint="@color/orange"  />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -339,7 +314,7 @@
                         android:fontFamily="@font/ubuntu_bold"
                         android:text="Home"
                         android:textAlignment="center"
-                        android:textColor="#ff5e00"
+                        android:textColor="@color/orange"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -356,7 +331,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_person"
-                        app:tint="#ff5e00" />
+                        app:tint="@color/orange"  />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -365,7 +340,7 @@
                         android:fontFamily="@font/ubuntu_bold"
                         android:text="Profile"
                         android:textAlignment="center"
-                        android:textColor="#ff5e00"
+                        android:textColor="@color/orange"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -390,7 +365,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_chat"
-                        app:tint="#ff5e00" />
+                        app:tint="@color/orange"  />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -399,7 +374,7 @@
                         android:fontFamily="@font/ubuntu_bold"
                         android:text="Support"
                         android:textAlignment="center"
-                        android:textColor="#ff5e00"
+                        android:textColor="@color/orange"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -416,7 +391,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_settings"
-                        app:tint="#ff5e00" />
+                        app:tint="@color/orange" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -425,7 +400,7 @@
                         android:fontFamily="@font/ubuntu_bold"
                         android:text="Settings"
                         android:textAlignment="center"
-                        android:textColor="#ff5e00"
+                        android:textColor="@color/orange"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -436,11 +411,10 @@
             android:id="@+id/cart_floating_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#ff5e00"
+            android:backgroundTint="@color/orange"
             android:elevation="3dp"
             android:src="@drawable/shopping_cart"
-            app:backgroundTint="#ff5e00"
             app:layout_anchor="@id/app_bar"
-            app:tint="#FFFFFF" />
+            app:tint="@color/white" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
