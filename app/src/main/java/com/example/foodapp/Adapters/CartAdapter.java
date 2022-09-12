@@ -47,11 +47,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.VH> {
         return super.getItemId(position);
     }
 
-    @Override
-    public void setHasStableIds(boolean hasStableIds) {
-        super.setHasStableIds(hasStableIds);
-    }
-
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
