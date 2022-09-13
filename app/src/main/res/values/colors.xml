@@ -14,4 +14,6 @@
     <color name="darker_white">#DDDDDD</color>
     <color name="red">#FF3C30</color>
     <color name="gray">#808080</color>
+    <color name="black_lighter">#3C3838</color>
+    <color name="black_lighter_2">#454242</color>
 </resources>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.foodapp">
+    package="com.example.foodapp" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +14,15 @@
         android:roundIcon="@drawable/pizza"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodApp"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name=".CheckoutActivity"
+            android:exported="false"
+            android:label="@string/title_activity_checkout"
+            android:theme="@style/Theme.FoodApp.NoActionBar" />
         <activity
             android:name=".Activity.MainActivity2"
-            android:exported="true">
+            android:exported="true" >
         </activity>
         <activity
             android:name=".Activity.RoomActivity"
@@ -27,11 +34,11 @@
             android:name=".Activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
-            android:windowSoftInputMode="adjustNothing"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.IntroActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

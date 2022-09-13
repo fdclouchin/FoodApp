@@ -9,14 +9,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/black_lighter"
         android:clickable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/order_summary_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/lighter_orange"
+            android:background="@color/black_lighter_2"
             android:padding="10dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,7 @@
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/order_summary"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="-"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/order_summary_label"
                 app:layout_constraintStart_toEndOf="@+id/order_summary_label"
@@ -58,7 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/sub_total"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/order_summary_label"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -72,7 +72,7 @@
                 android:layout_marginEnd="5dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/system_currency"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/sub_total_label"
                 app:layout_constraintEnd_toStartOf="@+id/sub_total_price"
@@ -88,7 +88,7 @@
                 android:layout_marginEnd="15dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="-"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/sub_total_currency"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +101,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/vat_tax_12"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/sub_total_label"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -115,7 +115,7 @@
                 android:layout_marginEnd="5dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/system_currency"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/vat_tax_label"
                 app:layout_constraintEnd_toStartOf="@+id/vat_tax_total"
@@ -131,7 +131,7 @@
                 android:layout_marginEnd="15dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="-"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/vat_tax_currency"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +144,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/total_label"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/vat_tax_label"
                 app:layout_constraintTop_toBottomOf="@+id/vat_tax_label" />
@@ -258,6 +258,7 @@
         <include
             android:id="@+id/include"
             layout="@layout/top_common_bar" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

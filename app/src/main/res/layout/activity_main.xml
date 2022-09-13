@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".Activity.MainActivity">
 
 
@@ -49,7 +50,7 @@
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/ubuntu_bold"
                     android:text="Hi Tester"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +67,7 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/ubuntu_bold"
                     android:text="Order and Eat"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -183,7 +184,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/ubuntu_bold"
                     android:text="Categories"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -229,7 +230,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/ubuntu_bold"
                     android:text="Popular"
-                    android:textColor="#000000"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -268,7 +269,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="78dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -279,9 +280,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
-            android:backgroundTint="#E1E1E1"
+            android:backgroundTint="@color/black"
             app:fabCradleMargin="10dp">
-            <!--aapp:fabCradleRoundedCornerRadius="10dp"
+            <!--app:fabCradleRoundedCornerRadius="10dp"
             pp:fabCradleVerticalOffset="1dp">-->
 
             <LinearLayout
@@ -424,6 +425,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/orange"
+            android:contentDescription="floating"
             android:elevation="3dp"
             android:src="@drawable/shopping_cart"
             app:layout_anchor="@id/app_bar"

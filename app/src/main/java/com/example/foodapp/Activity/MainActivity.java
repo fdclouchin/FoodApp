@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,12 +14,19 @@ import android.widget.Toast;
 
 import com.example.foodapp.Adapters.CategoryAdapter;
 import com.example.foodapp.Adapters.PopularAdapter;
+import com.example.foodapp.BuildConfig;
 import com.example.foodapp.Fragments.CartInformationFragment;
 import com.example.foodapp.Interfaces.OnBackPressedFragment;
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.Model.Foods;
 import com.example.foodapp.R;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.paypal.checkout.PayPalCheckout;
+import com.paypal.checkout.config.CheckoutConfig;
+import com.paypal.checkout.createorder.CurrencyCode;
+import com.paypal.checkout.createorder.UserAction;
 
 import java.util.ArrayList;
 
@@ -90,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
                 return true;
             }
         });
+
     }
 
     private void filterList(String text) {
@@ -176,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
 
     private void displayDrinkCategory() {
         mPopularList = new ArrayList<>();
+        mPopularList.add(new Foods("Coffee", "coffee_1", "Coffee", 15.75));
         mPopularList.add(new Foods("SUPER DRINKS", "pop_1", "sinigang na burger with ketchup and pizza dahon", 32.99));
 
         setFoodAdapter();
@@ -208,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         mPopularList = new ArrayList<>();
         mPopularList.add(new Foods("Pepperoni Pizza", "pizza", "sinigang na pizza with olive oil", 29.99));
         mPopularList.add(new Foods("Cheese Burger", "pop_2", "sinigang na burger with soy sauce", 7.99));
+        mPopularList.add(new Foods("Coffee", "coffee_1", "Coffee", 15.75));
         mPopularList.add(new Foods("Vegetable Pizza w/ sinigang burger", "pop_1", "sinigang na burger with ketchup and pizza dahon", 32.99));
         mPopularList.add(new Foods("Fishdaa", "fish_1", "Fishdaaaaa", 42.99));
         mPopularList.add(new Foods("Cat Pizza w/ sinigang burger", "pop_3", "sinigang na burger with ketchup and pizza dahon", 52.99));
@@ -216,8 +227,6 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         mPopularList.add(new Foods("Dahon Pizza w/ sinigang burger", "pop_1", "sinigang na burger with ketchup and pizza dahon", 82.99));
         mPopularList.add(new Foods("Car Pizza w/ sinigang burger", "pop_2", "sinigang na burger with ketchup and pizza dahon", 92.99));
         mPopularList.add(new Foods("Coffee Pizza w/ sinigang burger", "fish_1", "sinigang na burger with ketchup and pizza dahon", 12.99));
-        mPopularList.add(new Foods("zzz Pizza w/ sinigang burger", "pop_3", "sinigang na burger with ketchup and pizza dahon", 22.99));
-        mPopularList.add(new Foods("qqqq Pizza w/ sinigang burger", "pop_1", "sinigang na burger with ketchup and pizza dahon", 2.99));
 
         setFoodAdapter();
     }

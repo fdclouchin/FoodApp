@@ -4,7 +4,7 @@
     android:id="@+id/actionBar_container"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:background="@color/darker_white"
+    android:background="@color/black"
     android:clickable="false">
 
     <ImageView

@@ -27,7 +27,7 @@
             android:layout_weight="0.2"
             android:fontFamily="@font/ubuntu_bold"
             android:text="pos"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -43,14 +43,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.7"
             android:layout_marginStart="5dp"
+            android:layout_weight="0.7"
             android:ellipsize="end"
             android:fontFamily="@font/ubuntu_bold"
             android:maxLines="2"
             android:scrollHorizontally="true"
             android:text="Item_title"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <TextView
@@ -58,10 +58,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
-            android:textAlignment="textEnd"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="number_of_items"
-            android:textColor="@color/black"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <TextView
@@ -74,7 +73,7 @@
             android:fontFamily="@font/ubuntu_bold"
             android:gravity="end"
             android:text="total"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
     </LinearLayout>
