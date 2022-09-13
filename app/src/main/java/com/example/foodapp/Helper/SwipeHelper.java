@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.GestureDetector;
@@ -22,7 +21,6 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodapp.Activity.MainActivity;
 import com.example.foodapp.Interfaces.ButtonClickListener;
 import com.example.foodapp.R;
 
@@ -31,29 +29,20 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Queue;
 
 public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
     private final GestureDetector mGestureDetector;
     private final RecyclerView mRecyclerView;
     private final Map<Integer, List<ItemButton>> mButtonBuffer;
-    private final Queue<Integer> mRemoverQueue;
-    private final int mButtonWidth;
+    private final Queue<Integer> mRecoverQueue;
 
     private List<ItemButton> mButtonList;
     private int mSwipePosition = -1;
     private float mSwipeThreshold = 0.5f;
+    private int mButtonWidth;
 
     private GestureDetector.SimpleOnGestureListener gestureListener = new GestureDetector.SimpleOnGestureListener() {
-        /*@Override
-        public boolean onSingleTapUp(MotionEvent e) {
-            for (ItemButton button : mButtonList) {
-                if (button.onCLick(e.getX(), e.getY()))
-                    break;
-            }
-            return super.onSingleTapUp(e);
-        }*/
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             for (ItemButton button : mButtonList) {
@@ -78,12 +67,14 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
             Rect rect = new Rect();
             swipedItem.getGlobalVisibleRect(rect);
 
-            if (event.getAction() == event.ACTION_DOWN ||
-                    event.getAction() == event.ACTION_UP || event.getAction() == event.ACTION_MOVE) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN ||
+                    event.getAction() == MotionEvent.ACTION_UP ||
+                    event.getAction() == MotionEvent.ACTION_MOVE) {
                 if (rect.top < point.y && rect.bottom > point.y) {
                     mGestureDetector.onTouchEvent(event);
                 } else {
-                    mRemoverQueue.add(mSwipePosition);
+                    mRecoverQueue.add(mSwipePosition);
+                    mSwipePosition = -1;
                     recoverSwipedItem();
                 }
             }
@@ -100,7 +91,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
         this.mButtonBuffer = new HashMap<>();
         this.mButtonWidth = buttonWidth;
 
-        mRemoverQueue = new LinkedList<Integer>() {
+        mRecoverQueue = new LinkedList<Integer>() {
             @Override
             public boolean add(Integer integer) {
                 if (contains(integer))
@@ -117,15 +108,6 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
-    private synchronized void recoverSwipedItem() {
-        while (!mRemoverQueue.isEmpty()) {
-            int pos = mRemoverQueue.poll();
-            if (pos > 1) {
-                mRecyclerView.getAdapter().notifyItemChanged(pos);
-            }
-        }
-    }
-
     public class ItemButton {
         private String text;
         private int imageResID;
@@ -137,14 +119,13 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
         private Context context;
         private Resources resources;
 
-        public ItemButton(int position, Context context, String text, int imageResID, int textSize, int textColor, ButtonClickListener mListener) {
-            this.position = position;
+        public ItemButton(Context context, String text, int imageResID, int textSize, int textColor, ButtonClickListener clickListener) {
             this.context = context;
             this.text = text;
             this.imageResID = imageResID;
             this.textSize = textSize;
             this.textColor = textColor;
-            this.mListener = mListener;
+            this.mListener = clickListener;
             resources = context.getResources();
         }
 
@@ -164,7 +145,6 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
 
             paint.setColor(Color.WHITE);
             paint.setTextSize(textSize);
-
             paint.setTypeface(ResourcesCompat.getFont(context, R.font.ubuntu_bold));
 
             Rect rect = new Rect();
@@ -172,11 +152,11 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
             float cWidth = rectF.width();
             paint.setTextAlign(Paint.Align.LEFT);
             paint.getTextBounds(text, 0, text.length(), rect);
-            float x = cWidth / 2f - rect.width() / 2f - rect.left;
+            /*float x = cWidth / 2f - rect.width() / 2f - rect.left;
             float y = cHeight / 2f + rect.height() / 2f - rect.bottom;
-            canvas.drawText(text, rectF.left + x, rectF.top + y, paint);
+            canvas.drawText(text, rectF.left + x, rectF.top + y, paint);*/
 
-            /*float x = 0, y = 0;
+            float x = 0, y = 0;
             if (imageResID == 0) {
                 x = cWidth / 2f - rect.width() / 2f - rect.left;
                 y = cHeight / 2f + rect.height() / 2f - rect.bottom;
@@ -185,7 +165,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
                 Drawable drawable = ContextCompat.getDrawable(context, imageResID);
                 Bitmap bitmap = drawableToBitmap(drawable);
                 canvas.drawBitmap(bitmap, (rectF.left + rectF.right) / 2, (rectF.top + rectF.bottom) / 2, paint);
-            }*/
+            }
 
             clickRegion = rectF;
             this.position = pos;
@@ -212,7 +192,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
         int pos = viewHolder.getAdapterPosition();
 
         if (mSwipePosition != pos) {
-            mRemoverQueue.add(mSwipePosition);
+            mRecoverQueue.add(mSwipePosition);
         }
 
         mSwipePosition = pos;
@@ -226,6 +206,15 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
         mButtonBuffer.clear();
         mSwipeThreshold = 0.5f * mButtonList.size() * mButtonWidth;
         recoverSwipedItem();
+    }
+
+    private synchronized void recoverSwipedItem() {
+        while (!mRecoverQueue.isEmpty()) {
+            int pos = mRecoverQueue.poll();
+            if (pos > 1) {
+                mRecyclerView.getAdapter().notifyItemChanged(pos);
+            }
+        }
     }
 
     public float getSwipeThreshold(RecyclerView.ViewHolder viewHolder) {

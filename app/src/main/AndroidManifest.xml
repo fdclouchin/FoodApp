@@ -27,7 +27,8 @@
             android:name=".Activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            android:launchMode="singleTop" />
         <activity
             android:name=".Activity.IntroActivity"
             android:exported="true">

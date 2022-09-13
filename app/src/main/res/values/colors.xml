@@ -13,4 +13,5 @@
     <color name="lighter_orange">#FAF0EA</color>
     <color name="darker_white">#DDDDDD</color>
     <color name="red">#FF3C30</color>
+    <color name="gray">#808080</color>
 </resources>

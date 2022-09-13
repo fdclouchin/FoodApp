@@ -27,6 +27,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="56dp"
         android:layout_marginRight="56dp"
+        android:fontFamily="@font/ubuntu_bold"
         android:textColor="@color/orange"
         android:textSize="14sp"
         android:textStyle="bold" />

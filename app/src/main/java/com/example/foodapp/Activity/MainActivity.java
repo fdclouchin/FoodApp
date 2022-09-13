@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     private SearchView mSearch;
     private FloatingActionButton mCart;
 
+    private LinearLayout mHomeButton;
+    private LinearLayout mProfileButton;
+    private LinearLayout mSupportButton;
+    private LinearLayout mSettingsButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +55,22 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         mClearFilter = findViewById(R.id.clear_filter);
         mCart = findViewById(R.id.cart_floating_button);
         mSearch = findViewById(R.id.search_food);
+
+        mHomeButton = findViewById(R.id.home_button);
+        mProfileButton = findViewById(R.id.profile_button);
+        mSupportButton = findViewById(R.id.support_button);
+        mSettingsButton = findViewById(R.id.settings_button);
+
         mSearch.clearFocus();
 
         mOrderNow.setOnClickListener(mOnClickListener);
         mClearFilter.setOnClickListener(mOnClickListener);
         mCart.setOnClickListener(mOnClickListener);
+
+        mHomeButton.setOnClickListener(mOnClickListener);
+        mProfileButton.setOnClickListener(mOnClickListener);
+        mSupportButton.setOnClickListener(mOnClickListener);
+        mSettingsButton.setOnClickListener(mOnClickListener);
 
         displayCategoryList();
         displayPopularList();
@@ -114,6 +131,12 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
                     }
                     break;
                 }
+                case R.id.home_button: {
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.display_fragment);
+                    if (fragment != null) {
+                        onBackPressed();
+                    }
+                }
             }
         }
     };
@@ -145,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     private void displayHotdogCategory() {
         mPopularList = new ArrayList<>();
         mPopularList.add(new Foods("Hotdog with sinigang na pizza", "pop_1", "sinigang na burger with ketchup and pizza dahon", 32.99));
+        mPopularList.add(new Foods("Fishda with a twist", "fish_1", "sinigang na burger with ketchup and pizza dahon", 32.99));
 
         setFoodAdapter();
         ifEmptyList();
@@ -185,13 +209,13 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
         mPopularList.add(new Foods("Pepperoni Pizza", "pizza", "sinigang na pizza with olive oil", 29.99));
         mPopularList.add(new Foods("Cheese Burger", "pop_2", "sinigang na burger with soy sauce", 7.99));
         mPopularList.add(new Foods("Vegetable Pizza w/ sinigang burger", "pop_1", "sinigang na burger with ketchup and pizza dahon", 32.99));
-        mPopularList.add(new Foods("Dog Pizza w/ sinigang burger", "pop_2", "sinigang na burger with ketchup and pizza dahon", 42.99));
+        mPopularList.add(new Foods("Fishdaa", "fish_1", "Fishdaaaaa", 42.99));
         mPopularList.add(new Foods("Cat Pizza w/ sinigang burger", "pop_3", "sinigang na burger with ketchup and pizza dahon", 52.99));
         mPopularList.add(new Foods("Cow Pizza w/ sinigang burger", "pop_2", "sinigang na burger with ketchup and pizza dahon", 62.99));
-        mPopularList.add(new Foods("Monkey Pizza w/ sinigang burger", "pop_3", "sinigang na burger with ketchup and pizza dahon", 72.99));
+        mPopularList.add(new Foods("Isda with a twist", "fish_1", "sinigang na burger with ketchup and pizza dahon", 72.99));
         mPopularList.add(new Foods("Dahon Pizza w/ sinigang burger", "pop_1", "sinigang na burger with ketchup and pizza dahon", 82.99));
         mPopularList.add(new Foods("Car Pizza w/ sinigang burger", "pop_2", "sinigang na burger with ketchup and pizza dahon", 92.99));
-        mPopularList.add(new Foods("Coffee Pizza w/ sinigang burger", "pop_3", "sinigang na burger with ketchup and pizza dahon", 12.99));
+        mPopularList.add(new Foods("Coffee Pizza w/ sinigang burger", "fish_1", "sinigang na burger with ketchup and pizza dahon", 12.99));
         mPopularList.add(new Foods("zzz Pizza w/ sinigang burger", "pop_3", "sinigang na burger with ketchup and pizza dahon", 22.99));
         mPopularList.add(new Foods("qqqq Pizza w/ sinigang burger", "pop_1", "sinigang na burger with ketchup and pizza dahon", 2.99));
 

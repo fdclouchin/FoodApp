@@ -23,6 +23,8 @@ import com.example.foodapp.Model.Cart;
 import com.example.foodapp.R;
 import com.example.foodapp.RoomDatabase.CartDatabase;
 
+import java.util.ArrayList;
+
 public class FoodInformationFragment extends Fragment implements OnBackPressedFragment {
 
     private static final String FOOD_TITLE = "FOOD_TITLE";
@@ -101,8 +103,6 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
                 }
                 case R.id.add_to_cart_info_button: {
                     if (mItemCount != null) {
-                        Toast.makeText(getActivity(), "Add to cart", Toast.LENGTH_SHORT).show();
-
                         String foodTitle = mFoodTitle.getText().toString();
                         String foodPrice = mFoodPrice.getText().toString();
                         int itemCount = Integer.parseInt(mItemCount.getText().toString());
@@ -142,7 +142,17 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
         cart.itemPrice = itemPrice;
         cart.noOfItems = noOfItems;
         cart.itemImage = itemImage;
-        db.cartDao().addToCart(cart);
+        //check if item is already in cart, add to existing item
+        if(db.cartDao().isRowIsExist(itemTitle)){
+            Toast.makeText(getActivity(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
+            ArrayList<Cart> existItem = (ArrayList<Cart>) db.cartDao().retrieveExistingItem(itemTitle);
+            int existCartID  = existItem.get(0).getCart_id();
+            int currentNoOfItems  = existItem.get(0).getNoOfItems();
+            db.cartDao().updateExistingItem(currentNoOfItems + noOfItems, existCartID, itemTitle);
+        } else {
+            Toast.makeText(getActivity(), "Added to cart successfully", Toast.LENGTH_SHORT).show();
+            db.cartDao().addToCart(cart);
+        }
     }
 
     private void getBundles() {

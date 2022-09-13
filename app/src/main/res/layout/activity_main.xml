@@ -280,24 +280,27 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
             android:backgroundTint="#E1E1E1"
-            app:fabCradleMargin="10dp" >
-        <!--aapp:fabCradleRoundedCornerRadius="10dp"
-        pp:fabCradleVerticalOffset="1dp">-->
+            app:fabCradleMargin="10dp">
+            <!--aapp:fabCradleRoundedCornerRadius="10dp"
+            pp:fabCradleVerticalOffset="1dp">-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:baselineAligned="false"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/home_button"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.15"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:orientation="vertical">
 
                     <ImageView
@@ -305,7 +308,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_home"
-                        app:tint="@color/orange"  />
+                        app:tint="@color/orange" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -324,6 +327,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.15"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:orientation="vertical">
 
                     <ImageView
@@ -331,7 +337,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_person"
-                        app:tint="@color/orange"  />
+                        app:tint="@color/orange" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -358,6 +364,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.15"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:orientation="vertical">
 
                     <ImageView
@@ -365,7 +374,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/ic_chat"
-                        app:tint="@color/orange"  />
+                        app:tint="@color/orange" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -384,6 +393,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.15"
+                    android:background="?selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:orientation="vertical">
 
                     <ImageView

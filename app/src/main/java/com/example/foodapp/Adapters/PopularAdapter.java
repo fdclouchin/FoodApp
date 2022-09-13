@@ -69,7 +69,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-
                 bundle.putString(FOOD_TITLE, foodTitle);
                 bundle.putString(FOOD_PRICE, foodPrice);
                 bundle.putString(FOOD_DESCRIPTION, foodDescription);

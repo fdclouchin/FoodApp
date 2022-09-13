@@ -1,16 +1,21 @@
 package com.example.foodapp.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -50,10 +55,14 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     private ProgressDialog mDialog;
     private ArrayList<Cart> mCartList;
 
+    private ConstraintLayout mOrderSummaryLayout;
     private TextView mSubTotal;
     private TextView mVatTaxTotal;
     private TextView mCartTotal;
     private TextView mCheckout;
+    private TextView mRemoveAll;
+
+    private ConstraintLayout mEmpty;
 
     private double totalPrice;
     private double vatTotal;
@@ -72,15 +81,20 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         mBackButton = view.findViewById(R.id.back_button);
         mTitle = view.findViewById(R.id.text_view_title);
         mCartSize = view.findViewById(R.id.cart_size);
+
+        mOrderSummaryLayout = view.findViewById(R.id.order_summary_layout);
         mSubTotal = view.findViewById(R.id.sub_total_price);
         mVatTaxTotal = view.findViewById(R.id.vat_tax_total);
         mCartTotal = view.findViewById(R.id.cart_total);
         mCheckout = view.findViewById(R.id.check_out_button);
+        mRemoveAll = view.findViewById(R.id.remove_all_items);
+        mEmpty = view.findViewById(R.id.empty_cart);
 
         mTitle.setText(mActionBarTitle);
 
         mCheckout.setOnClickListener(mOnClickListener);
         mBackButton.setOnClickListener(mOnClickListener);
+        mRemoveAll.setOnClickListener(mOnClickListener);
         mDialog = new ProgressDialog(getContext());
 
         cartDB = CartDatabase.getDbInstance(getContext().getApplicationContext());
@@ -115,12 +129,16 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     }
 
     private void swipeHelper2() {
-        SwipeHelper2 swipeHelper = new SwipeHelper2(getContext(), mCartRecyclerView, 200) {
+        SwipeHelper2 swipeHelper = new SwipeHelper2(getContext(), mCartRecyclerView, 250) {
             @Override
             public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
+                int deleteIcon = R.drawable.ic_delete;
+                Bitmap bitmapDelete = getBitmapFromVectorDrawable(getContext(), deleteIcon);
                 underlayButtons.add(new SwipeHelper2.UnderlayButton(
+                        getContext(),
+                        45,
                         getString(R.string.delete_label).toUpperCase(),
-                        R.drawable.pop_2,
+                        bitmapDelete,
                         ContextCompat.getColor(getContext(), R.color.light_orange),
                         new SwipeHelper2.UnderlayButtonClickListener() {
                             @Override
@@ -131,9 +149,14 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                             }
                         }
                 ));
+                int editIcon = R.drawable.ic_edit;
+                Bitmap bitmapEdit = getBitmapFromVectorDrawable(getContext(), editIcon);
+
                 underlayButtons.add(new SwipeHelper2.UnderlayButton(
+                        getContext(),
+                        45,
                         getString(R.string.edit_label).toUpperCase(),
-                        0,
+                        bitmapEdit,
                         ContextCompat.getColor(getContext(), R.color.red),
                         new SwipeHelper2.UnderlayButtonClickListener() {
                             @Override
@@ -162,17 +185,32 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         };
     }
 
+    public Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            assert drawable != null;
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
     private void swipeHelper() {
         SwipeHelper swipeHelper = new SwipeHelper(getContext(), mCartRecyclerView, 230) {
             @Override
             public void instantiateItemButton(RecyclerView.ViewHolder viewHolder, List<ItemButton> buffer) {
                 buffer.add(new ItemButton(
-                        viewHolder.getAdapterPosition(),
                         getContext(),
                         getString(R.string.delete_label).toUpperCase(),
                         0,
                         50,
-                        Color.parseColor("#FF3C30"),
+                        ContextCompat.getColor(getContext(), R.color.light_orange),
                         new ButtonClickListener() {
                             @Override
                             public void onClick(int position) {
@@ -183,12 +221,11 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                         }
                 ));
                 buffer.add(new ItemButton(
-                        viewHolder.getAdapterPosition(),
                         getContext(),
                         getString(R.string.edit_label).toUpperCase(),
                         0,
                         50,
-                        Color.parseColor("#FF9502"),
+                        ContextCompat.getColor(getContext(), R.color.red),
                         new ButtonClickListener() {
                             @Override
                             public void onClick(int position) {
@@ -246,6 +283,20 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         getSubTotal();
         getVatTotal();
         getTotal();
+
+        hideOrderSummary();
+    }
+
+    private void hideOrderSummary() {
+        if (mCartList.isEmpty()) {
+            mOrderSummaryLayout.setVisibility(View.GONE);
+            mCartRecyclerView.setVisibility(View.GONE);
+            mEmpty.setVisibility(View.VISIBLE);
+        } else {
+            mOrderSummaryLayout.setVisibility(View.VISIBLE);
+            mCartRecyclerView.setVisibility(View.VISIBLE);
+            mEmpty.setVisibility(View.GONE);
+        }
     }
 
     private double getTotal() {
@@ -282,9 +333,35 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                     Toast.makeText(getContext(), "Checkout has been clicked", Toast.LENGTH_SHORT).show();
                     break;
                 }
+                case R.id.remove_all_items: {
+                    showRemoveAllDialog();
+                    break;
+                }
             }
         }
     };
+
+    private void showRemoveAllDialog() {
+        new AlertDialog.Builder(getContext())
+                //.setTitle("Your Cart")
+                .setMessage("Remove all items from your Cart?")
+                .setNegativeButton("No", null)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        cartDB.cartDao().deleteAllItems();
+                        loadProgressDialog();
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadCartList();
+                            }
+                        }, 1000);
+                    }
+                }).create().show();
+    }
 
     private void showRemoveDialog(int cartID) {
         new AlertDialog.Builder(getContext())

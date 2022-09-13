@@ -11,4 +11,6 @@
     <string name="vat_tax_12">VAT Tax (12%)</string>
     <string name="total_label">Total</string>
     <string name="checkout_label">Checkout</string>
+    <string name="remove_all">remove all</string>
+    <string name="empty_cart">Empty Cart</string>
 </resources>
