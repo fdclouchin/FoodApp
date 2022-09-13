@@ -141,7 +141,7 @@
                 android:id="@+id/total_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/total_label"
                 android:textColor="@color/white"
@@ -150,19 +150,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/vat_tax_label" />
 
             <TextView
+                android:id="@+id/cart_total_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="@string/system_currency"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/total_label"
+                app:layout_constraintEnd_toStartOf="@+id/cart_total"
+                app:layout_constraintHorizontal_bias="0.98"
+                app:layout_constraintStart_toEndOf="@+id/total_label"
+                app:layout_constraintTop_toTopOf="@+id/total_label"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
                 android:id="@+id/cart_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:fontFamily="@font/ubuntu_bold"
                 android:text="-"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/total_label"
+                app:layout_constraintBottom_toBottomOf="@+id/cart_total_label"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.954"
-                app:layout_constraintStart_toEndOf="@+id/total_label"
-                app:layout_constraintTop_toTopOf="@+id/total_label"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="@+id/cart_total_label"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/check_out_button"
@@ -180,7 +194,7 @@
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cart_total"
+                app:layout_constraintTop_toBottomOf="@+id/cart_total_label"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView

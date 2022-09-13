@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,19 +13,12 @@ import android.widget.Toast;
 
 import com.example.foodapp.Adapters.CategoryAdapter;
 import com.example.foodapp.Adapters.PopularAdapter;
-import com.example.foodapp.BuildConfig;
 import com.example.foodapp.Fragments.CartInformationFragment;
 import com.example.foodapp.Interfaces.OnBackPressedFragment;
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.Model.Foods;
 import com.example.foodapp.R;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.paypal.checkout.PayPalCheckout;
-import com.paypal.checkout.config.CheckoutConfig;
-import com.paypal.checkout.createorder.CurrencyCode;
-import com.paypal.checkout.createorder.UserAction;
 
 import java.util.ArrayList;
 

@@ -11,7 +11,7 @@ import com.example.foodapp.Interfaces.UserDao;
 import com.example.foodapp.Model.Cart;
 import com.example.foodapp.Model.User;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class}, version = 2)
 
 public abstract class AppDatabase extends RoomDatabase {
 

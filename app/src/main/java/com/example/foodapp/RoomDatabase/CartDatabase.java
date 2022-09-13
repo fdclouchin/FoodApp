@@ -11,7 +11,7 @@ import com.example.foodapp.Interfaces.UserDao;
 import com.example.foodapp.Model.Cart;
 import com.example.foodapp.Model.User;
 
-@Database(entities = {Cart.class}, version = 1)
+@Database(entities = {Cart.class}, version = 2)
 
 public abstract class CartDatabase extends RoomDatabase {
 
@@ -21,7 +21,9 @@ public abstract class CartDatabase extends RoomDatabase {
 
     public static CartDatabase getDbInstance(Context context) {
         if(INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CartDatabase.class, "Cart_DB")
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            CartDatabase.class, "Cart_DB")
+                    /*.fallbackToDestructiveMigration()*/ //if db version is updated use this to wipe clean the db
                     .allowMainThreadQueries()
                     .build();
         }

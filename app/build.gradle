@@ -51,5 +51,5 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.5.1'
 
-    implementation 'com.paypal.sdk:paypal-android-sdk:2.14.2'
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
 }

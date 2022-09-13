@@ -3,6 +3,7 @@ package com.example.foodapp.Fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodapp.Activity.PaypalCheckOutActivity;
 import com.example.foodapp.Adapters.CartAdapter;
 import com.example.foodapp.Helper.SwipeHelper;
 import com.example.foodapp.Helper.SwipeHelper2;
@@ -43,8 +45,9 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     private static final String ITEM_PRICE = "ITEM_PRICE";
     private static final String ITEM_IMAGE = "ITEM_IMAGE";
     private static final String NO_OF_ITEMS = "NO_OF_ITEMS";
+    private static final String PAYMENT_TOTAL = "PAYMENT_TOTAL";
 
-    private final String mActionBarTitle;
+    private String mActionBarTitle;
     private CartInformationFragment mCartInformationFragment;
     private ImageView mBackButton;
     private TextView mTitle;
@@ -64,13 +67,17 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
 
     private ConstraintLayout mEmpty;
 
-    private double totalPrice;
-    private double vatTotal;
+    private double mTotalPrice;
+    private double mVatTotal;
 
-    private CartDatabase cartDB;
+    private CartDatabase mCartDB;
 
     public CartInformationFragment(String title) {
         this.mActionBarTitle = title;
+    }
+
+    public CartInformationFragment() {
+        // doesn't do anything special
     }
 
     @Override
@@ -97,7 +104,7 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
         mRemoveAll.setOnClickListener(mOnClickListener);
         mDialog = new ProgressDialog(getContext());
 
-        cartDB = CartDatabase.getDbInstance(getContext().getApplicationContext());
+        mCartDB = CartDatabase.getDbInstance(getContext().getApplicationContext());
 
         mCartInformationFragment = (CartInformationFragment) getActivity()
                 .getSupportFragmentManager()
@@ -270,7 +277,7 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     private void loadCartList() {
         mCartList = new ArrayList<>();
 
-        mCartList = (ArrayList<Cart>) cartDB.cartDao().getAllCart();
+        mCartList = (ArrayList<Cart>) mCartDB.cartDao().getAllCart();
         if (mCartList != null) {
             mCartAdapter.setCartList(mCartList);
         }
@@ -300,24 +307,24 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
     }
 
     private double getTotal() {
-        double cartTotal = totalPrice + vatTotal;
-        mCartTotal.setText("$" + String.format("%.2f", cartTotal));
+        double cartTotal = mTotalPrice + mVatTotal;
+        mCartTotal.setText(String.format("%.2f", cartTotal));
         return cartTotal;
     }
 
     private double getVatTotal() {
-        vatTotal = totalPrice * 0.12;
-        mVatTaxTotal.setText(String.format("%.2f", vatTotal));
-        return vatTotal;
+        mVatTotal = mTotalPrice * 0.12;
+        mVatTaxTotal.setText(String.format("%.2f", mVatTotal));
+        return mVatTotal;
     }
 
     public double getSubTotal() {
-        totalPrice = 0.0d;
+        mTotalPrice = 0.0d;
         for (int i = 0; i < mCartList.size(); i++) {
-            totalPrice += (Double.parseDouble(mCartList.get(i).getItemPrice()) * mCartList.get(i).getNoOfItems());
+            mTotalPrice += (Double.parseDouble(mCartList.get(i).getItemPrice()) * mCartList.get(i).getNoOfItems());
         }
-        mSubTotal.setText(String.format("%.2f", totalPrice));
-        return totalPrice;
+        mSubTotal.setText(String.format("%.2f", mTotalPrice));
+        return mTotalPrice;
     }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -331,6 +338,10 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                 }
                 case R.id.check_out_button: {
                     Toast.makeText(getContext(), "Checkout has been clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), PaypalCheckOutActivity.class);
+                    String totalAmount = mCartTotal.getText().toString();
+                    intent.putExtra(PAYMENT_TOTAL, totalAmount);
+                    startActivity(intent);
                     break;
                 }
                 case R.id.remove_all_items: {
@@ -349,7 +360,7 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        cartDB.cartDao().deleteAllItems();
+                        mCartDB.cartDao().deleteAllItems();
                         loadProgressDialog();
 
                         Handler handler = new Handler();
@@ -371,7 +382,7 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        cartDB.cartDao().deleteFromCart(cartID);
+                        mCartDB.cartDao().deleteFromCart(cartID);
                         loadProgressDialog();
 
                         Handler handler = new Handler();
