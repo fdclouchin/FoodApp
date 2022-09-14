@@ -334,7 +334,6 @@ public class CartInformationFragment extends Fragment implements OnBackPressedFr
                 case R.id.back_button: {
                     getParentFragmentManager().beginTransaction().remove(mCartInformationFragment).commit();
                     break;
-
                 }
                 case R.id.check_out_button: {
                     Toast.makeText(getContext(), "Checkout has been clicked", Toast.LENGTH_SHORT).show();

@@ -5,7 +5,9 @@
       <map>
         <entry key="app/src/main/res/drawable-ldpi/fragment_background.xml" value="0.1925" />
         <entry key="app/src/main/res/drawable/add_icon.xml" value="0.238" />
+        <entry key="app/src/main/res/drawable/bg_bottom_separator.xml" value="0.3485" />
         <entry key="app/src/main/res/drawable/bg_white_circle.xml" value="0.2215" />
+        <entry key="app/src/main/res/drawable/black_lighter_button.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/bottom_shadow.xml" value="0.2325" />
         <entry key="app/src/main/res/drawable/category_background.xml" value="0.2815" />
         <entry key="app/src/main/res/drawable/category_background2.xml" value="0.2815" />
@@ -17,6 +19,7 @@
         <entry key="app/src/main/res/drawable/ic_close_icon.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.2825" />
         <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_payment.xml" value="0.185" />
         <entry key="app/src/main/res/drawable/ic_person.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/item_fragment_modal.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/minus_icon.xml" value="0.238" />
@@ -35,9 +38,11 @@
         <entry key="app/src/main/res/layout/cart_item_layout.xml" value="0.34375" />
         <entry key="app/src/main/res/layout/category_list_item.xml" value="0.3020833333333333" />
         <entry key="app/src/main/res/layout/foods_list_item.xml" value="0.67" />
-        <entry key="app/src/main/res/layout/fragment_cart_information.xml" value="0.48227936066712995" />
+        <entry key="app/src/main/res/layout/fragment_cart_information.xml" value="0.30594594594594593" />
         <entry key="app/src/main/res/layout/fragment_edit_cart_item.xml" value="0.20092592592592592" />
         <entry key="app/src/main/res/layout/fragment_food_information.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_payment_history.xml" value="0.20052083333333334" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.14739583333333334" />
         <entry key="app/src/main/res/layout/intro_main.xml" value="0.21843434343434343" />
         <entry key="app/src/main/res/layout/main_menu.xml" value="0.23703703703703705" />
         <entry key="app/src/main/res/layout/test_row_item.xml" value="0.23703703703703705" />

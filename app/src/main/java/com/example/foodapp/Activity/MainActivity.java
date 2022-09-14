@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.foodapp.Adapters.CategoryAdapter;
 import com.example.foodapp.Adapters.PopularAdapter;
 import com.example.foodapp.Fragments.CartInformationFragment;
+import com.example.foodapp.Fragments.SettingsFragment;
 import com.example.foodapp.Interfaces.OnBackPressedFragment;
 import com.example.foodapp.Model.Category;
 import com.example.foodapp.Model.Foods;
@@ -138,9 +139,23 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
                         onBackPressed();
                     }
                 }
+                case R.id.settings_button: {
+                    SettingsFragment settingsFragment = new SettingsFragment();
+                    Fragment setFragment = getSupportFragmentManager().findFragmentByTag("SettingsFragmentTag");
+                    if (setFragment == null) {
+                        displaySettingsFragment(settingsFragment);
+                    }
+                }
             }
         }
     };
+
+    private void displaySettingsFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.display_fragment, fragment, "SettingsFragmentTag")
+                .commit();
+    }
 
     private void displayCartFragment(Fragment fragment) {
         getSupportFragmentManager()
@@ -247,8 +262,8 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     //onBackPressed
     @Override
     public void onBackPressed() {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.display_fragment);
-        if (!(fragment instanceof OnBackPressedFragment) || !((OnBackPressedFragment) fragment).onBackPressed()) {
+        Fragment displayFragment = getSupportFragmentManager().findFragmentById(R.id.display_fragment);
+        if (!(displayFragment instanceof OnBackPressedFragment) || !((OnBackPressedFragment) displayFragment).onBackPressed()) {
             super.onBackPressed();
         }
     }

@@ -79,9 +79,12 @@ public class EditCartItemFragment extends Fragment implements OnBackPressedFragm
         mProgressDialog = new ProgressDialog(getContext());
         cartDB = CartDatabase.getDbInstance(getContext().getApplicationContext());
 
-        mEditCartItemFragment = (EditCartItemFragment) getActivity()
-                .getSupportFragmentManager()
-                .findFragmentById(R.id.display_fragment);
+        if(getActivity() != null) {
+            mEditCartItemFragment = (EditCartItemFragment) getActivity()
+                    .getSupportFragmentManager()
+                    .findFragmentById(R.id.display_fragment);
+        }
+
         getUpdateBundles();
         checkItemCount();
         return view;
@@ -89,7 +92,7 @@ public class EditCartItemFragment extends Fragment implements OnBackPressedFragm
 
     private void getUpdateBundles() {
         Bundle bundle = this.getArguments();
-        if (bundle != null) {
+        if (bundle != null && getActivity() != null && getContext() != null) {
             String foodEditTitle = bundle.getString(ITEM_NAME);
             String foodEditPrice = bundle.getString(ITEM_PRICE);
             int foodEditNumberOfItems = bundle.getInt(NO_OF_ITEMS);

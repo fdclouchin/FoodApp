@@ -23,7 +23,8 @@ public abstract class CartDatabase extends RoomDatabase {
         if(INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             CartDatabase.class, "Cart_DB")
-                    /*.fallbackToDestructiveMigration()*/ //if db version is updated use this to wipe clean the db
+                    //if db version is updated use this to wipe clean the db
+                    /*.fallbackToDestructiveMigration()*/
                     .allowMainThreadQueries()
                     .build();
         }

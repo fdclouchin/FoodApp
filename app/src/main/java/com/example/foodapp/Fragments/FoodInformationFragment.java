@@ -157,7 +157,7 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
 
     private void getBundles() {
         Bundle bundle = this.getArguments();
-        if (bundle != null) {
+        if (bundle != null && getActivity() != null) {
             String foodTitle = bundle.getString(FOOD_TITLE);
             String foodPrice = bundle.getString(FOOD_PRICE);
             String foodDescription = bundle.getString(FOOD_DESCRIPTION);
@@ -167,7 +167,7 @@ public class FoodInformationFragment extends Fragment implements OnBackPressedFr
             mFoodPrice.setText(foodPrice);
             mFoodDescription.setText(foodDescription);
 
-            int drawableResourceID = getContext().getResources().getIdentifier(foodImage, "drawable", getContext().getPackageName());
+            int drawableResourceID = getActivity().getResources().getIdentifier(foodImage, "drawable", getContext().getPackageName());
             Glide.with(getActivity())
                     .load(drawableResourceID)
                     .into(mInfoFoodImage);
